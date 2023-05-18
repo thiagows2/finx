@@ -1,17 +1,14 @@
 import StyledComponentsRegistry from '../../lib/registry'
+import { ReactNode } from 'react'
 
 export const metadata = {
   title: 'Finx',
-  description: 'Improve your finances with Finx',
+  description: 'Improve your finances management'
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-  <html>
+    <html>
       <body>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
