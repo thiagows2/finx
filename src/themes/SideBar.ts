@@ -5,8 +5,7 @@ import { colors } from '@/themes/Patterns'
 export const SideBarContainer = styled.div`
   background: ${colors.PRIMARY_WHITE};
   min-width: 200px;
-  height: 100vh;
-  padding: 40px 56px;
+  padding: 32px 56px;
 `
 
 export const SideBarHeader = styled.div`
