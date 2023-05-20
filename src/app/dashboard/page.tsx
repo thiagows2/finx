@@ -7,12 +7,17 @@ import {
   SummaryContainer,
   SummaryItem,
   GraphContainer,
-  Graph
+  Graph,
+  IconContainer,
+  Divider
 } from './styles'
 
 import { SideBar } from '@/components/SideBar'
 import { Text } from '@/components/Text'
 import { colors } from '@/themes/Patterns'
+import { AiOutlineRise, AiOutlineFall } from 'react-icons/ai'
+import { HiOutlineDocumentText } from 'react-icons/hi'
+import { MdRocket } from 'react-icons/md'
 
 export default function Dashboard() {
   return (
@@ -27,16 +32,39 @@ export default function Dashboard() {
         </TitleContainer>
         <SummaryContainer>
           <SummaryItem>
-            <Text.Small color={colors.GRAY}>Boletos</Text.Small>
+            <IconContainer color={colors.BLUE}>
+              <HiOutlineDocumentText />
+            </IconContainer>
+            <Text.Small color={colors.GRAY} margin="4px 0">
+              Boletos
+            </Text.Small>
           </SummaryItem>
+          <Divider />
           <SummaryItem>
-            <Text.Small color={colors.GRAY}>Entradas</Text.Small>
+            <IconContainer color={colors.GREEN}>
+              <AiOutlineRise />
+            </IconContainer>
+            <Text.Small color={colors.GRAY} margin="4px 0">
+              Entradas
+            </Text.Small>
           </SummaryItem>
+          <Divider />
           <SummaryItem>
-            <Text.Small color={colors.GRAY}>Saídas</Text.Small>
+            <IconContainer color={colors.RED}>
+              <AiOutlineFall />
+            </IconContainer>
+            <Text.Small color={colors.GRAY} margin="4px 0">
+              Saídas
+            </Text.Small>
           </SummaryItem>
+          <Divider />
           <SummaryItem>
-            <Text.Small color={colors.GRAY}>Saldo</Text.Small>
+            <IconContainer color={colors.PURPLE}>
+              <MdRocket />
+            </IconContainer>
+            <Text.Small color={colors.GRAY} margin="4px 0">
+              Saldo
+            </Text.Small>
           </SummaryItem>
         </SummaryContainer>
         <GraphContainer>

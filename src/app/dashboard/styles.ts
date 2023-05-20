@@ -37,7 +37,11 @@ export const SummaryContainer = styled.div`
   padding: 28px;
 `
 
-export const SummaryItem = styled.div``
+export const SummaryItem = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+`
 
 export const GraphContainer = styled.div`
   display: flex;
@@ -52,4 +56,20 @@ export const Graph = styled.div`
   background: ${colors.PRIMARY_WHITE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 18px;
+`
+
+export const IconContainer = styled.div`
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  width: 44px;
+  height: 44px;
+  background: ${colors.SECONDARY_GRAY};
+  opacity: 0.65;
+  border-radius: 12px;
+  color: ${({ color }) => color};
+`
+export const Divider = styled.div`
+  border-left: 1px solid ${colors.SECONDARY_GRAY};
+  height: 100%;
 `

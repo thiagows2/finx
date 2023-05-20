@@ -4,19 +4,21 @@ import { texts } from '@/themes/Patterns'
 
 interface TextProps {
   color?: string
+  margin?: string
 }
 
 export const Text = {
   Small: styled.p<TextProps>`
-    'font-size':${texts.size.SMALL}!important;
-    color: ${({ color }) => color} !important;
+    margin: ${({ margin }) => margin};
+    'font-size':${texts.size.SMALL};
+    color: ${({ color }) => color};
   `,
   Medium: styled.p<TextProps>`
-    'font-size':${texts.size.MEDIUM}!important;
-    color: ${({ color }) => color} !important;
+    'font-size':${texts.size.MEDIUM};
+    color: ${({ color }) => color};
   `,
   Title: styled.h1<TextProps>`
-    'font-size':${texts.size.HUGE}!important ;
-    color: ${({ color }) => color} !important;
+    'font-size':${texts.size.HUGE};
+    color: ${({ color }) => color};
   `
 }
