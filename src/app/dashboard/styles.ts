@@ -1,17 +1,19 @@
 import styled from 'styled-components'
 
-import { colors } from '@/themes/colors'
+import { colors } from '@/themes/Patterns'
 
-export const Container = styled.div`
+export const PageContainer = styled.div`
   display: flex;
-  background: ${colors.PRIMARY_WHITE};
+  background: ${colors.SECONDARY_WHITE};
   width: 100vw;
   height: 100vh;
 `
 
-export const TitleContainer = styled.div``
+export const DashboardContainer = styled.div`
+  margin: 20px 40px;
+`
 
-export const SideBar = styled.div`
-  width: 20%;
-  background: ${colors.WHITE};
+export const TitleContainer = styled.div`
+  margin: 0;
+  padding: 0;
 `

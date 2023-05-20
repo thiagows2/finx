@@ -1,15 +1,20 @@
 'use client'
 
-import { Container, SideBar, TitleContainer } from './styles'
+import { PageContainer, DashboardContainer, TitleContainer } from './styles'
+
+import { SideBar } from '@/components/SideBar'
+import { Text } from '@/components/Text'
 
 export default function Dashboard() {
   return (
-    <Container>
+    <PageContainer>
       <SideBar />
-      <TitleContainer>
-        <h1>Dashboard</h1>
-        <p>Informações gerais sobre sua saúde financeira</p>
-      </TitleContainer>
-    </Container>
+      <DashboardContainer>
+        <TitleContainer>
+          <Text.Title>Dashboard</Text.Title>
+          <Text.Small>Informações gerais sobre sua saúde financeira</Text.Small>
+        </TitleContainer>
+      </DashboardContainer>
+    </PageContainer>
   )
 }
