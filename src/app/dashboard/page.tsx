@@ -1,13 +1,14 @@
 'use client'
 
+import { Chart } from 'react-google-charts'
 import {
   PageContainer,
   DashboardContainer,
   TitleContainer,
   SummaryContainer,
   SummaryItem,
-  GraphContainer,
-  Graph,
+  ChartsContainer,
+  PieChartContainer,
   IconContainer,
   Divider
 } from './styles'
@@ -20,6 +21,25 @@ import { HiOutlineDocumentText } from 'react-icons/hi'
 import { MdRocket } from 'react-icons/md'
 
 export default function Dashboard() {
+  const chart = {
+    data: [
+      ['Language', 'Speakers (in millions)'],
+      ['Aluguel', 40],
+      ['Mercado', 30],
+      ['Cartão', 20]
+    ],
+    options: {
+      legend: 'none',
+      pieSliceText: 'none',
+      pieHole: 0.8,
+      slices: {
+        0: { offset: 0.02, color: '382A89' },
+        1: { offset: 0.04, color: '3D0E62' },
+        2: { offset: 0.02, color: '735D97' }
+      }
+    }
+  }
+
   return (
     <PageContainer>
       <SideBar />
@@ -67,10 +87,26 @@ export default function Dashboard() {
             </Text.Small>
           </SummaryItem>
         </SummaryContainer>
-        <GraphContainer>
-          <Graph />
-          <Graph />
-        </GraphContainer>
+        <ChartsContainer>
+          <PieChartContainer>
+            <Chart
+              width={'220px'}
+              height={'220px'}
+              chartType="PieChart"
+              data={chart.data}
+              options={chart.options}
+            />
+          </PieChartContainer>
+          <PieChartContainer>
+            <Chart
+              width={'220px'}
+              height={'220px'}
+              chartType="PieChart"
+              data={chart.data}
+              options={chart.options}
+            />
+          </PieChartContainer>
+        </ChartsContainer>
       </DashboardContainer>
     </PageContainer>
   )

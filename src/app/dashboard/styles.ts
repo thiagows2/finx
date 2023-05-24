@@ -39,19 +39,23 @@ export const SummaryItem = styled.div`
   gap: 8px;
 `
 
-export const GraphContainer = styled.div`
+export const ChartsContainer = styled.div`
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
 `
 
-export const Graph = styled.div`
+export const PieChartContainer = styled.div`
   width: 100%;
-  max-width: 340px;
-  height: 310px;
+  height: 285px;
+  padding: 8px;
+  max-width: 332px;
   background: ${colors.PRIMARY_WHITE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 18px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 `
 
 export const IconContainer = styled.div`
