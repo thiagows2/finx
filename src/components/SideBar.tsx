@@ -2,7 +2,8 @@ import {
   SideBarContainer,
   SideBarHeader,
   SideBarMenu,
-  SideBarMenuItem
+  SideBarMenuItem,
+  Logo
 } from '@/themes/SideBar'
 import { colors } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
@@ -11,6 +12,7 @@ export function SideBar() {
   return (
     <SideBarContainer>
       <SideBarHeader>
+        <Logo src="/logo.svg" alt="Finx logo" />
         <Text.Title color={colors.PURPLE}>Finx</Text.Title>
       </SideBarHeader>
       <SideBarMenu>

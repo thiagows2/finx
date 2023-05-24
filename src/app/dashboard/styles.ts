@@ -6,7 +6,6 @@ export const PageContainer = styled.div`
   display: flex;
   background: ${colors.SECONDARY_WHITE};
   height: 100vh;
-  width: 100vw;
   overflow: hidden;
 `
 
@@ -16,10 +15,7 @@ export const DashboardContainer = styled.div`
   width: 100%;
   height: 100%;
   gap: 48px;
-  margin: 32px;
-  @media (min-width: 768px) {
-    margin: 32px 48px;
-  }
+  margin: 32px 48px;
 `
 
 export const TitleContainer = styled.div`
@@ -69,6 +65,7 @@ export const IconContainer = styled.div`
   border-radius: 12px;
   color: ${({ color }) => color};
 `
+
 export const Divider = styled.div`
   border-left: 1px solid ${colors.SECONDARY_GRAY};
   height: 100%;

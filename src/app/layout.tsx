@@ -1,14 +1,10 @@
+import './globals.css'
 import { ReactNode } from 'react'
-import { Roboto } from 'next/font/google'
+import { Inter } from 'next/font/google'
 
 import StyledComponentsRegistry from '../../lib/registry'
 
-const roboto = Roboto({
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap'
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Finx',
@@ -18,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html>
-      <body className={roboto.className}>
+      <body className={inter.className}>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>

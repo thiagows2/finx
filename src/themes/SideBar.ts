@@ -10,6 +10,9 @@ export const SideBarContainer = styled.div`
 
 export const SideBarHeader = styled.div`
   margin-bottom: 70px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `
 
 export const SideBarMenu = styled.ul`
@@ -28,4 +31,9 @@ export const SideBarMenuItem = styled.li`
     color: ${colors.PURPLE} !important;
     cursor: pointer;
   }
+`
+
+export const Logo = styled.img`
+  width: 60px;
+  height: 60px;
 `
