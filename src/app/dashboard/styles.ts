@@ -4,7 +4,11 @@ import { colors } from '@/themes/Patterns'
 
 export const PageContainer = styled.div`
   display: flex;
-  background: ${colors.SECONDARY_WHITE};
+  background: linear-gradient(
+      rgba(218, 224, 227, 0.7) 0px,
+      rgba(218, 224, 227, 0) 24px
+    )
+    0 0 no-repeat padding-box padding-box rgb(242, 244, 245);
   height: 100vh;
   overflow: hidden;
 `
@@ -24,7 +28,7 @@ export const TitleContainer = styled.div`
 
 export const SummaryContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   max-width: 700px;
   background: ${colors.PRIMARY_WHITE};
@@ -35,7 +39,6 @@ export const SummaryContainer = styled.div`
 
 export const SummaryItem = styled.div`
   display: flex;
-  align-items: flex-start;
   gap: 8px;
 `
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { texts } from '@/themes/Patterns'
+import { colors, texts } from '@/themes/Patterns'
 
 interface TextProps {
   color?: string
@@ -26,5 +26,10 @@ export const Text = {
     font-weight: ${({ fontWeight }) => fontWeight};
     font-size: ${texts.size.HUGE};
     color: ${({ color }) => color};
+  `,
+  Number: styled.p<TextProps>`
+    margin: ${({ margin }) => margin || '0'};
+    color: ${({ color }) => color || colors.PRIMARY_GRAY};
+    font-weight: ${({ fontWeight }) => fontWeight || 'bold'};
   `
 }

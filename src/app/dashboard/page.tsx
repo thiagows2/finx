@@ -41,6 +41,15 @@ export default function Dashboard() {
     }
   }
 
+  function formatCurrency(valor: number): string {
+    const format = {
+      style: 'currency',
+      currency: 'BRL'
+    }
+
+    return new Intl.NumberFormat('pt-BR', format).format(valor)
+  }
+
   return (
     <PageContainer>
       <SideBar />
@@ -56,36 +65,48 @@ export default function Dashboard() {
             <IconContainer color={colors.BLUE}>
               <HiOutlineDocumentText />
             </IconContainer>
-            <Text.Small color={colors.GRAY} margin="4px 0">
-              Boletos
-            </Text.Small>
+            <Flex flexDirection={'column'}>
+              <Text.Small color={colors.GRAY} margin="4px 0">
+                Boletos
+              </Text.Small>
+              <Text.Number>{4}</Text.Number>
+            </Flex>
           </SummaryItem>
           <Divider />
           <SummaryItem>
             <IconContainer color={colors.GREEN}>
               <AiOutlineRise />
             </IconContainer>
-            <Text.Small color={colors.GRAY} margin="4px 0">
-              Entradas
-            </Text.Small>
+            <Flex flexDirection={'column'}>
+              <Text.Small color={colors.GRAY} margin="4px 0">
+                Entradas
+              </Text.Small>
+              <Text.Number>{formatCurrency(4212)}</Text.Number>
+            </Flex>
           </SummaryItem>
           <Divider />
           <SummaryItem>
             <IconContainer color={colors.RED}>
               <AiOutlineFall />
             </IconContainer>
-            <Text.Small color={colors.GRAY} margin="4px 0">
-              Saídas
-            </Text.Small>
+            <Flex flexDirection={'column'}>
+              <Text.Small color={colors.GRAY} margin="4px 0">
+                Saídas
+              </Text.Small>
+              <Text.Number>{formatCurrency(3125)}</Text.Number>
+            </Flex>
           </SummaryItem>
           <Divider />
           <SummaryItem>
             <IconContainer color={colors.PURPLE}>
               <MdRocket />
             </IconContainer>
-            <Text.Small color={colors.GRAY} margin="4px 0">
-              Saldo
-            </Text.Small>
+            <Flex flexDirection={'column'}>
+              <Text.Small color={colors.GRAY} margin="4px 0">
+                Saldo
+              </Text.Small>
+              <Text.Number>{formatCurrency(1087)}</Text.Number>
+            </Flex>
           </SummaryItem>
         </SummaryContainer>
         <ChartsContainer>

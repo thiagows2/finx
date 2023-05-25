@@ -19,7 +19,7 @@ export const SideBarMenu = styled.ul`
   display: flex;
   flex-direction: column;
   list-style: none;
-  padding: 0;
+  padding: 0 0 0 8px;
   margin: 0;
   gap: 24px;
 `
