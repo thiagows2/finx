@@ -26,7 +26,7 @@ export const SummaryContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 650px;
+  max-width: 700px;
   background: ${colors.PRIMARY_WHITE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 14px;
@@ -47,15 +47,14 @@ export const ChartsContainer = styled.div`
 
 export const PieChartContainer = styled.div`
   width: 100%;
-  height: 285px;
-  padding: 8px;
-  max-width: 332px;
+  height: 272px;
+  padding: 30px 20px;
+  max-width: 328px;
   background: ${colors.PRIMARY_WHITE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 18px;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  position: relative;
 `
 
 export const IconContainer = styled.div`

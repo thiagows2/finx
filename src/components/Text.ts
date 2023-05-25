@@ -5,20 +5,26 @@ import { texts } from '@/themes/Patterns'
 interface TextProps {
   color?: string
   margin?: string
+  fontWeight?: number
 }
 
 export const Text = {
   Small: styled.p<TextProps>`
     margin: ${({ margin }) => margin};
-    'font-size':${texts.size.SMALL};
+    font-weight: ${({ fontWeight }) => fontWeight};
+    font-size: ${texts.size.SMALL};
     color: ${({ color }) => color};
   `,
   Medium: styled.p<TextProps>`
-    'font-size':${texts.size.MEDIUM};
+    margin: ${({ margin }) => margin};
+    font-weight: ${({ fontWeight }) => fontWeight};
+    font-size: ${texts.size.MEDIUM};
     color: ${({ color }) => color};
   `,
   Title: styled.h1<TextProps>`
-    'font-size':${texts.size.HUGE};
+    margin: ${({ margin }) => margin};
+    font-weight: ${({ fontWeight }) => fontWeight};
+    font-size: ${texts.size.HUGE};
     color: ${({ color }) => color};
   `
 }

@@ -13,9 +13,10 @@ import {
   Divider
 } from './styles'
 
-import { SideBar } from '@/components/SideBar'
 import { Text } from '@/components/Text'
 import { colors } from '@/themes/Patterns'
+import { Flex } from '@/themes/FlexBox'
+import { SideBar } from '@/components/SideBar'
 import { AiOutlineRise, AiOutlineFall } from 'react-icons/ai'
 import { HiOutlineDocumentText } from 'react-icons/hi'
 import { MdRocket } from 'react-icons/md'
@@ -89,21 +90,47 @@ export default function Dashboard() {
         </SummaryContainer>
         <ChartsContainer>
           <PieChartContainer>
+            <Flex flexDirection={'column'}>
+              <Text.Medium margin="6px 0" fontWeight={600}>
+                Despezas
+              </Text.Medium>
+              <Text.Small color={colors.GRAY} margin="0">
+                Maiores percentuais de gastos mensais
+              </Text.Small>
+            </Flex>
             <Chart
-              width={'220px'}
-              height={'220px'}
+              width={'240px'}
+              height={'240px'}
               chartType="PieChart"
               data={chart.data}
               options={chart.options}
+              style={{
+                position: 'absolute',
+                bottom: 2.5,
+                right: 2.5
+              }}
             />
           </PieChartContainer>
           <PieChartContainer>
+            <Flex flexDirection={'column'}>
+              <Text.Medium margin="6px 0" fontWeight={600}>
+                Por categoria
+              </Text.Medium>
+              <Text.Small color={colors.GRAY} margin="0">
+                Maiores percentuais de gastos mensais por categoria
+              </Text.Small>
+            </Flex>
             <Chart
-              width={'220px'}
-              height={'220px'}
+              width={'240px'}
+              height={'240px'}
               chartType="PieChart"
               data={chart.data}
               options={chart.options}
+              style={{
+                position: 'absolute',
+                bottom: 2.5,
+                right: 2.5
+              }}
             />
           </PieChartContainer>
         </ChartsContainer>
