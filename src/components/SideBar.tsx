@@ -13,20 +13,20 @@ export function SideBar() {
     <SideBarContainer>
       <SideBarHeader>
         <Logo src="/logo.svg" alt="Finx logo" />
-        <Text.Title color={colors.PURPLE}>Finx</Text.Title>
+        <Text.Title color={colors.VIOLET}>Finx</Text.Title>
       </SideBarHeader>
       <SideBarMenu>
         <SideBarMenuItem>
-          <Text.Medium color={colors.GRAY}>Perfil</Text.Medium>
+          <Text.Medium>Perfil</Text.Medium>
         </SideBarMenuItem>
         <SideBarMenuItem>
-          <Text.Medium color={colors.GRAY}>Dashboard</Text.Medium>
+          <Text.Medium>Dashboard</Text.Medium>
         </SideBarMenuItem>
         <SideBarMenuItem>
-          <Text.Medium color={colors.GRAY}>Configurações</Text.Medium>
+          <Text.Medium>Configurações</Text.Medium>
         </SideBarMenuItem>
         <SideBarMenuItem>
-          <Text.Medium color={colors.GRAY}>Sair</Text.Medium>
+          <Text.Medium>Sair</Text.Medium>
         </SideBarMenuItem>
       </SideBarMenu>
     </SideBarContainer>

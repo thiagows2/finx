@@ -28,7 +28,7 @@ export const SideBarMenuItem = styled.li`
   margin-bottom: 10px;
 
   p:hover {
-    color: ${colors.PURPLE} !important;
+    color: ${colors.VIOLET};
     cursor: pointer;
   }
 `

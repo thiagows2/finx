@@ -15,7 +15,7 @@ import {
 
 import { Text } from '@/components/Text'
 import { colors } from '@/themes/Patterns'
-import { Flex } from '@/themes/FlexBox'
+import { Flex } from '@/components/FlexBox'
 import { SideBar } from '@/components/SideBar'
 import { AiOutlineRise, AiOutlineFall } from 'react-icons/ai'
 import { HiOutlineDocumentText } from 'react-icons/hi'
@@ -56,55 +56,45 @@ export default function Dashboard() {
       <DashboardContainer>
         <TitleContainer>
           <Text.Title>Dashboard</Text.Title>
-          <Text.Small color={colors.GRAY}>
-            Informações gerais sobre sua saúde financeira
-          </Text.Small>
+          <Text.Small>Informações gerais sobre sua saúde financeira</Text.Small>
         </TitleContainer>
         <SummaryContainer>
           <SummaryItem>
-            <IconContainer color={colors.BLUE}>
+            <IconContainer color={colors.PRIMARY_BLUE}>
               <HiOutlineDocumentText />
             </IconContainer>
             <Flex flexDirection={'column'}>
-              <Text.Small color={colors.GRAY} margin="4px 0">
-                Boletos
-              </Text.Small>
+              <Text.Small margin="4px 0">Boletos</Text.Small>
               <Text.Number>{4}</Text.Number>
             </Flex>
           </SummaryItem>
           <Divider />
           <SummaryItem>
-            <IconContainer color={colors.GREEN}>
+            <IconContainer color={colors.SUCCESS_GREEN}>
               <AiOutlineRise />
             </IconContainer>
             <Flex flexDirection={'column'}>
-              <Text.Small color={colors.GRAY} margin="4px 0">
-                Entradas
-              </Text.Small>
+              <Text.Small margin="4px 0">Entradas</Text.Small>
               <Text.Number>{formatCurrency(4212)}</Text.Number>
             </Flex>
           </SummaryItem>
           <Divider />
           <SummaryItem>
-            <IconContainer color={colors.RED}>
+            <IconContainer color={colors.ERROR_RED}>
               <AiOutlineFall />
             </IconContainer>
             <Flex flexDirection={'column'}>
-              <Text.Small color={colors.GRAY} margin="4px 0">
-                Saídas
-              </Text.Small>
+              <Text.Small margin="4px 0">Saídas</Text.Small>
               <Text.Number>{formatCurrency(3125)}</Text.Number>
             </Flex>
           </SummaryItem>
           <Divider />
           <SummaryItem>
-            <IconContainer color={colors.PURPLE}>
+            <IconContainer color={colors.VIOLET}>
               <MdRocket />
             </IconContainer>
             <Flex flexDirection={'column'}>
-              <Text.Small color={colors.GRAY} margin="4px 0">
-                Saldo
-              </Text.Small>
+              <Text.Small margin="4px 0">Saldo</Text.Small>
               <Text.Number>{formatCurrency(1087)}</Text.Number>
             </Flex>
           </SummaryItem>
@@ -112,10 +102,14 @@ export default function Dashboard() {
         <ChartsContainer>
           <PieChartContainer>
             <Flex flexDirection={'column'}>
-              <Text.Medium margin="6px 0" fontWeight={600}>
+              <Text.Medium
+                margin="6px 0"
+                fontWeight={600}
+                color={colors.PRIMARY_BLACK}
+              >
                 Despezas
               </Text.Medium>
-              <Text.Small color={colors.GRAY} margin="0">
+              <Text.Small margin="0">
                 Maiores percentuais de gastos mensais
               </Text.Small>
             </Flex>
@@ -134,10 +128,14 @@ export default function Dashboard() {
           </PieChartContainer>
           <PieChartContainer>
             <Flex flexDirection={'column'}>
-              <Text.Medium margin="6px 0" fontWeight={600}>
+              <Text.Medium
+                margin="6px 0"
+                fontWeight={600}
+                color={colors.PRIMARY_BLACK}
+              >
                 Por categoria
               </Text.Medium>
-              <Text.Small color={colors.GRAY} margin="0">
+              <Text.Small margin="0">
                 Maiores percentuais de gastos mensais por categoria
               </Text.Small>
             </Flex>

@@ -8,28 +8,27 @@ interface TextProps {
   fontWeight?: number
 }
 
+const TextBase = styled.p<TextProps>`
+  margin: ${({ margin }) => margin};
+  font-weight: ${({ fontWeight }) => fontWeight};
+  color: ${({ color }) => color || colors.LIGHT_GRAY};
+`
+
 export const Text = {
-  Small: styled.p<TextProps>`
-    margin: ${({ margin }) => margin};
-    font-weight: ${({ fontWeight }) => fontWeight};
+  Small: styled(TextBase)`
     font-size: ${texts.size.SMALL};
-    color: ${({ color }) => color};
   `,
-  Medium: styled.p<TextProps>`
-    margin: ${({ margin }) => margin};
-    font-weight: ${({ fontWeight }) => fontWeight};
+  Medium: styled(TextBase)`
     font-size: ${texts.size.MEDIUM};
-    color: ${({ color }) => color};
   `,
-  Title: styled.h1<TextProps>`
-    margin: ${({ margin }) => margin};
-    font-weight: ${({ fontWeight }) => fontWeight};
+  Title: styled.p`
     font-size: ${texts.size.HUGE};
-    color: ${({ color }) => color};
+    color: ${({ color }) => color || colors.PRIMARY_BLACK};
+    font-weight: bold;
   `,
   Number: styled.p<TextProps>`
     margin: ${({ margin }) => margin || '0'};
-    color: ${({ color }) => color || colors.PRIMARY_GRAY};
+    color: ${({ color }) => color || colors.DARK_GRAY};
     font-weight: ${({ fontWeight }) => fontWeight || 'bold'};
   `
 }

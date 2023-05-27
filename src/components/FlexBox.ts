@@ -3,13 +3,16 @@ import { CSSProperties } from 'react'
 
 interface BoxProps {
   flex?: CSSProperties['flex']
+  margin?: CSSProperties['margin']
   maxWidth?: CSSProperties['maxWidth']
   width?: CSSProperties['width']
+  height?: CSSProperties['height']
   padding?: CSSProperties['padding']
+  alignSelf?: CSSProperties['alignSelf']
 }
 
 interface FlexProps {
-  flexDirection?: CSSProperties['flexDirection']
+  flexDirection?: string
   flexWrap?: CSSProperties['flexWrap']
   justifyContent?: CSSProperties['justifyContent']
   alignItems?: CSSProperties['alignItems']
@@ -19,9 +22,12 @@ interface FlexProps {
 
 export const Box = styled.div<BoxProps>`
   flex: ${({ flex }) => flex};
-  max-width: ${({ maxWidth }) => maxWidth};
   width: ${({ width }) => width || '100%'};
+  height: ${({ height }) => height};
+  margin: ${({ margin }) => margin};
+  max-width: ${({ maxWidth }) => maxWidth};
   padding: ${({ padding }) => padding};
+  align-self: ${({ alignSelf }) => alignSelf};
 `
 
 export const Flex = styled.div<FlexProps>`

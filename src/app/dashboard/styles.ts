@@ -4,13 +4,9 @@ import { colors } from '@/themes/Patterns'
 
 export const PageContainer = styled.div`
   display: flex;
-  background: linear-gradient(
-      rgba(218, 224, 227, 0.7) 0px,
-      rgba(218, 224, 227, 0) 24px
-    )
-    0 0 no-repeat padding-box padding-box rgb(242, 244, 245);
-  height: 100vh;
+  position: relative;
   overflow: hidden;
+  height: 100vh;
 `
 
 export const DashboardContainer = styled.div`
