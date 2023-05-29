@@ -2,6 +2,9 @@ import styled from 'styled-components'
 
 export const PageContainer = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
   height: 100vh;
 `
 
@@ -11,7 +14,6 @@ export const LoginContainer = styled.div`
   gap: 20px;
   width: 300px;
   padding: 60px;
-  margin: auto;
   align-self: center;
   background-color: #fff;
   border-radius: 10px;
@@ -19,5 +21,6 @@ export const LoginContainer = styled.div`
 `
 
 export const Image = styled.img`
-  margin: auto;
+  margin-right: 20%;
+  width: 300px;
 `

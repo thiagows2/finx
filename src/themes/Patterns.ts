@@ -1,3 +1,5 @@
+import { createTheme } from '@mui/material/styles'
+
 export const colors = {
   DARK_GRAY: '#627179',
   ERROR_RED: '#FF1717',
@@ -19,3 +21,50 @@ export const texts = {
     HUGE: '24px'
   }
 }
+
+export const theme = createTheme({
+  typography: {
+    fontSize: 14
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+          fontWeight: 600,
+          color: colors.PRIMARY_WHITE,
+          backgroundColor: colors.VIOLET,
+          textTransform: 'none',
+
+          '&:hover': {
+            backgroundColor: 'blueviolet'
+          }
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: colors.SECONDARY_GRAY
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: colors.LIGHT_VIOLET
+          }
+        },
+        notchedOutline: {
+          borderColor: colors.SECONDARY_GRAY
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        outlined: {
+          '&.Mui-focused': {
+            color: colors.VIOLET
+          }
+        }
+      }
+    }
+  }
+})

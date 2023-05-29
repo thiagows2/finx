@@ -1,19 +1,24 @@
 'use client'
 
-import { ContainedButton } from '@/components/Button'
+import { ThemeProvider } from '@mui/material/styles'
+
+import { Button } from '@mui/material'
 import { OutlinedInput } from '@/components/Input'
 import { PageContainer, LoginContainer, Image } from './styles'
+import { theme } from '@/themes/Patterns'
 
 export default function Login() {
   return (
-    <PageContainer>
-      <LoginContainer>
-        <OutlinedInput label="E-mail" />
-        <OutlinedInput label="Senha" />
-        <ContainedButton>Entrar</ContainedButton>
-      </LoginContainer>
+    <ThemeProvider theme={theme}>
+      <PageContainer>
+        <LoginContainer>
+          <OutlinedInput label="E-mail" />
+          <OutlinedInput label="Senha" />
+          <Button>Entrar</Button>
+        </LoginContainer>
 
-      <Image src="/rocket_human.png" alt="login" />
-    </PageContainer>
+        <Image src="/rocket_human.png" alt="login" />
+      </PageContainer>
+    </ThemeProvider>
   )
 }
