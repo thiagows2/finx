@@ -35,6 +35,7 @@ export const theme = createTheme({
           color: colors.PRIMARY_WHITE,
           backgroundColor: colors.VIOLET,
           textTransform: 'none',
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.2)',
 
           '&:hover': {
             backgroundColor: 'blueviolet'

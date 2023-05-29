@@ -6,6 +6,7 @@ export const PageContainer = styled.div`
   justify-content: space-evenly;
   flex-wrap: wrap;
   height: 100vh;
+  margin: 0 80px;
 `
 
 export const LoginContainer = styled.div`
@@ -18,9 +19,16 @@ export const LoginContainer = styled.div`
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  margin: 6% 0;
+`
+
+export const TitleContainer = styled.div`
+  width: 300px;
+  height: 300px;
+  margin-right: 10%;
 `
 
 export const Image = styled.img`
-  margin-right: 20%;
+  margin-top: 10%;
   width: 300px;
 `
