@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 import { colors, texts } from '@/themes/Patterns'
-import { fontWeight } from '@mui/system'
 
 interface TextProps {
   color?: string
