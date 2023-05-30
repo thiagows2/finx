@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import { Button } from '@mui/material'
 import { OutlinedInput } from '@/components/Input'
-import { PageContainer, LoginContainer, TitleContainer, Image } from './styles'
+import { PageContainer, SignInContainer, TitleContainer, Image } from './styles'
 import { colors, theme } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
 
@@ -12,11 +12,11 @@ export default function SignIn() {
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
-        <LoginContainer>
+        <SignInContainer>
           <OutlinedInput label="E-mail" />
           <OutlinedInput label="Senha" />
           <Button>Entrar</Button>
-        </LoginContainer>
+        </SignInContainer>
 
         <Image src="/rocket_human.png" alt="login" />
         <TitleContainer>

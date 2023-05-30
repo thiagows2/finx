@@ -1,15 +1,12 @@
 import styled from 'styled-components'
 
 export const PageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  display: grid;
+  place-items: center;
   height: 100vh;
-  margin: 0 80px;
 `
 
-export const SignInContainer = styled.div`
+export const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -24,15 +21,4 @@ export const SignInContainer = styled.div`
   @media (max-width: 768px) {
     padding: 32px 24px;
   }
-`
-
-export const TitleContainer = styled.div`
-  width: fit-content;
-  height: 320px;
-  margin-right: 10%;
-`
-
-export const Image = styled.img`
-  margin-top: 10%;
-  width: 300px;
 `
