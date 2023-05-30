@@ -20,11 +20,15 @@ export const LoginContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   margin: 6% 0;
+
+  @media (max-width: 768px) {
+    padding: 32px 24px;
+  }
 `
 
 export const TitleContainer = styled.div`
-  width: 300px;
-  height: 300px;
+  width: fit-content;
+  height: 320px;
   margin-right: 10%;
 `
 

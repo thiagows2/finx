@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 
 export const colors = {
+  BLUE_VIOLET: '#8A2BE2',
   DARK_GRAY: '#627179',
   ERROR_RED: '#FF1717',
   LIGHT_GRAY: '#A5A7AF',
@@ -15,10 +16,10 @@ export const colors = {
 
 export const texts = {
   size: {
-    SMALL: '12px',
-    MEDIUM: '14px',
-    BIG: '16px',
-    HUGE: '24px'
+    SMALL: 12,
+    MEDIUM: 14,
+    BIG: 16,
+    HUGE: 24
   }
 }
 
