@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Link from 'next/link'
 
 import { colors, texts } from '@/themes/Patterns'
 
@@ -27,7 +28,7 @@ export const Text = {
     color: ${({ color }) => color || colors.PRIMARY_BLACK};
     font-weight: ${({ fontWeight }) => fontWeight};
   `,
-  Link: styled.a<{ fontSize?: number }>`
+  Link: styled(Link)<{ fontSize?: number }>`
     color: ${colors.VIOLET};
     font-size: ${({ fontSize }) => fontSize || texts.size.BIG}px;
     text-decoration: none;
