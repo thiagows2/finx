@@ -9,7 +9,7 @@ export const PageContainer = styled.div`
   margin: 0 80px;
 `
 
-export const SignInContainer = styled.div`
+export const SignInContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;

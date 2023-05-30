@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
 import { ThemeProvider } from '@mui/material/styles'
 
 import { Button } from '@mui/material'
@@ -9,13 +11,33 @@ import { colors, theme } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
 
 export default function SignIn() {
+  const router = useRouter()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
+  function onSubmit(data: object) {
+    console.log(data)
+    router.push('/dashboard')
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
-        <SignInContainer>
-          <OutlinedInput label="E-mail" />
-          <OutlinedInput label="Senha" />
-          <Button>Entrar</Button>
+        <SignInContainer onSubmit={handleSubmit(onSubmit)}>
+          <OutlinedInput
+            label="E-mail"
+            error={!!errors.email}
+            {...register('email', { required: true })}
+          />
+          <OutlinedInput
+            label="Senha"
+            error={!!errors.password}
+            {...register('password', { required: true })}
+          />
+          <Button type="submit">Entrar</Button>
         </SignInContainer>
 
         <Image src="/rocket_human.png" alt="login" />
