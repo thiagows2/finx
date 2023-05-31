@@ -6,7 +6,13 @@ import { ThemeProvider } from '@mui/material/styles'
 
 import { Button } from '@mui/material'
 import { OutlinedInput } from '@/components/Input'
-import { PageContainer, SignInContainer, TitleContainer, Image } from './styles'
+import {
+  PageContainer,
+  SignInContainer,
+  TitleContainer,
+  Image,
+  Doodle
+} from './styles'
 import { colors, theme } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
 
@@ -42,6 +48,7 @@ export default function SignIn() {
 
         <Image src="/rocket_human.png" alt="login" />
         <TitleContainer>
+          <Doodle src="/doodle.png" />
           <Text.Title
             color={colors.PRIMARY_BLACK}
             fontSize={32}

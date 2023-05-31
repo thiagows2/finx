@@ -36,3 +36,14 @@ export const Image = styled.img`
   margin-top: 10%;
   width: 300px;
 `
+
+export const Doodle = styled.img`
+  position: absolute;
+  margin: 100px 0 0 -10px;
+  width: 308px;
+  transform: rotate(3deg);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
