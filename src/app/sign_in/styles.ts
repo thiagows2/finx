@@ -7,9 +7,13 @@ export const PageContainer = styled.div`
   flex-wrap: wrap;
   height: 100vh;
   margin: 0 80px;
+
+  @media (max-width: 768px) {
+    justify-content: start;
+  }
 `
 
-export const SignInContainer = styled.form`
+export const SignInForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -35,6 +39,10 @@ export const TitleContainer = styled.div`
 export const Image = styled.img`
   margin-top: 10%;
   width: 300px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 export const Doodle = styled.img`

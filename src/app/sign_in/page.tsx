@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { ThemeProvider } from '@mui/material/styles'
 
-import { Button } from '@mui/material'
+import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
 import {
   PageContainer,
-  SignInContainer,
+  SignInForm,
   TitleContainer,
   Image,
   Doodle
@@ -32,7 +32,7 @@ export default function SignIn() {
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
-        <SignInContainer onSubmit={handleSubmit(onSubmit)}>
+        <SignInForm onSubmit={handleSubmit(onSubmit)}>
           <OutlinedInput
             label="E-mail"
             error={!!errors.email}
@@ -43,8 +43,8 @@ export default function SignIn() {
             error={!!errors.password}
             {...register('password', { required: true })}
           />
-          <Button type="submit">Entrar</Button>
-        </SignInContainer>
+          <ContainedButton type="submit">Entrar</ContainedButton>
+        </SignInForm>
 
         <Image src="/rocket_human.png" alt="login" />
         <TitleContainer>
@@ -53,6 +53,7 @@ export default function SignIn() {
             color={colors.PRIMARY_BLACK}
             fontSize={32}
             fontWeight={600}
+            style={{ marginBottom: 40 }}
           >
             Rumo à <br />
             independência financeira

@@ -6,7 +6,7 @@ export const PageContainer = styled.div`
   height: 100vh;
 `
 
-export const SignUpContainer = styled.div`
+export const SignUpForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;

@@ -40,6 +40,10 @@ export const theme = createTheme({
 
           '&:hover': {
             backgroundColor: 'blueviolet'
+          },
+
+          '& .MuiCircularProgress-root': {
+            color: 'white'
           }
         }
       }
