@@ -13,7 +13,7 @@ export const PageContainer = styled.div`
   }
 `
 
-export const SignInForm = styled.form`
+export const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;

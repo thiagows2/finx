@@ -8,7 +8,7 @@ import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
 import {
   PageContainer,
-  SignInForm,
+  LoginForm,
   TitleContainer,
   Image,
   Doodle
@@ -16,7 +16,7 @@ import {
 import { colors, theme } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
 
-export default function SignIn() {
+export default function Login() {
   const router = useRouter()
   const {
     register,
@@ -32,7 +32,7 @@ export default function SignIn() {
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
-        <SignInForm onSubmit={handleSubmit(onSubmit)}>
+        <LoginForm onSubmit={handleSubmit(onSubmit)}>
           <OutlinedInput
             label="E-mail"
             error={!!errors.email}
@@ -44,7 +44,7 @@ export default function SignIn() {
             {...register('password', { required: true })}
           />
           <ContainedButton type="submit">Entrar</ContainedButton>
-        </SignInForm>
+        </LoginForm>
 
         <Image src="/rocket_human.png" alt="login" />
         <TitleContainer>
@@ -60,7 +60,7 @@ export default function SignIn() {
           </Text.Title>
           <Text.Medium fontSize={16}>
             Ainda não possui uma conta? <br />
-            <Text.Link href="/sign_up">Cadastre-se aqui</Text.Link>
+            <Text.Link href="/register">Cadastre-se aqui</Text.Link>
           </Text.Medium>
         </TitleContainer>
       </PageContainer>

@@ -28,6 +28,13 @@ export const theme = createTheme({
     fontSize: 14
   },
   components: {
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: colors.ERROR_RED
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: {
