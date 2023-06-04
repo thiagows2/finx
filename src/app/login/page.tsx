@@ -39,8 +39,8 @@ export default function Login() {
     try {
       await login({ data })
       router.push('/dashboard')
-    } catch (_error) {
-      showError('Usuário ou senha inválidos')
+    } catch (error: any) {
+      showError(error.response.data)
     }
   }
 

@@ -40,23 +40,23 @@ export default function Register() {
   )
 
   async function onSubmit(data: userData) {
-    const response = await createUser({
-      data: {
-        username: data.name,
-        email: data.email,
-        password: data.password
-      }
-    })
+    try {
+      await createUser({
+        data: {
+          username: data.name,
+          email: data.email,
+          password: data.password
+        }
+      })
 
-    if (response.status === 200) {
       setTimeout(() => {
         push('/login')
       }, 3000)
       showSuccess(
         'Sua conta foi criada com sucesso! Por favor, aguarde enquanto você é redirecionado para a tela de login.'
       )
-    } else {
-      showError('Algo deu errado, tente novamente mais tarde!')
+    } catch (error: any) {
+      showError(error.response.data)
     }
   }
 
