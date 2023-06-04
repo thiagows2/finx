@@ -5,8 +5,10 @@ import useAxios from 'axios-hooks'
 import { useRouter } from 'next/navigation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { ToastContainer } from 'react-toastify'
 
 import { ThemeProvider } from '@mui/material/styles'
+import { showError, showSuccess } from '@/components/Toast'
 import { formSchema } from '@/app/register/formSchema'
 import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
@@ -45,10 +47,16 @@ export default function Register() {
         password: data.password
       }
     })
+
     if (response.status === 200) {
       setTimeout(() => {
         push('/login')
-      }, 2000)
+      }, 3000)
+      showSuccess(
+        'Sua conta foi criada com sucesso! Por favor, aguarde enquanto você é redirecionado para a tela de login.'
+      )
+    } else {
+      showError('Algo deu errado, tente novamente mais tarde!')
     }
   }
 
@@ -69,12 +77,14 @@ export default function Register() {
           />
           <OutlinedInput
             type="password"
+            autoComplete="on"
             label="Senha"
             helperText={<>{errors.password && errors.password.message}</>}
             {...register('password')}
           />
           <OutlinedInput
             type="password"
+            autoComplete="on"
             label="Confirmação de senha"
             helperText={<>{errors.confirmPwd && errors.confirmPwd.message}</>}
             {...register('confirmPwd')}
@@ -84,6 +94,7 @@ export default function Register() {
           </ContainedButton>
         </RegisterForm>
       </PageContainer>
+      <ToastContainer />
     </ThemeProvider>
   )
 }

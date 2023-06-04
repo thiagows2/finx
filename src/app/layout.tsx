@@ -1,4 +1,6 @@
 import './globals.css'
+import 'react-toastify/dist/ReactToastify.css'
+
 import { ReactNode } from 'react'
 import { Inter } from 'next/font/google'
 
