@@ -1,9 +1,12 @@
 'use client'
 
+import useAxios from 'axios-hooks'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { ThemeProvider } from '@mui/material/styles'
+import { showError } from '@/components/Toast'
 
+import { ToastContainer } from 'react-toastify'
 import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
 import {
@@ -24,9 +27,21 @@ export default function Login() {
     formState: { errors }
   } = useForm()
 
-  function onSubmit(data: object) {
-    console.log(data)
-    router.push('/dashboard')
+  const [{ loading }, login] = useAxios(
+    {
+      url: `${process.env.API_BASE_URL}/Auth/login`,
+      method: 'POST'
+    },
+    { manual: true }
+  )
+
+  async function onSubmit(data: object) {
+    try {
+      await login({ data })
+      router.push('/dashboard')
+    } catch (_error) {
+      showError('Usuário ou senha inválidos')
+    }
   }
 
   return (
@@ -35,15 +50,19 @@ export default function Login() {
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
           <OutlinedInput
             label="E-mail"
-            error={!!errors.email}
+            type="email"
+            helperText={<>{errors.email && 'Informe um e-mail'}</>}
             {...register('email', { required: true })}
           />
           <OutlinedInput
             label="Senha"
-            error={!!errors.password}
+            type="password"
+            helperText={<>{errors.password && 'Informe uma senha'}</>}
             {...register('password', { required: true })}
           />
-          <ContainedButton type="submit">Entrar</ContainedButton>
+          <ContainedButton type="submit" loading={loading}>
+            Entrar
+          </ContainedButton>
         </LoginForm>
 
         <Image src="/rocket_human.png" alt="login" />
@@ -64,6 +83,7 @@ export default function Login() {
           </Text.Medium>
         </TitleContainer>
       </PageContainer>
+      <ToastContainer />
     </ThemeProvider>
   )
 }
