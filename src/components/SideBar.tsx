@@ -3,7 +3,8 @@ import {
   SideBarHeader,
   SideBarMenu,
   SideBarMenuItem,
-  Logo
+  Logo,
+  Divider
 } from '@/themes/SideBar'
 import { colors } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
@@ -16,14 +17,16 @@ export function SideBar() {
         <Text.Title color={colors.VIOLET}>Finx</Text.Title>
       </SideBarHeader>
       <SideBarMenu>
-        <SideBarMenuItem>
-          <Text.Medium>Perfil</Text.Medium>
+        <SideBarMenuItem disabled={true}>
+          <Text.Medium title="Em breve...">Perfil</Text.Medium>
         </SideBarMenuItem>
-        <SideBarMenuItem>
+        <SideBarMenuItem selected={true}>
+          <div />
           <Text.Medium>Dashboard</Text.Medium>
         </SideBarMenuItem>
-        <SideBarMenuItem>
-          <Text.Medium>Configurações</Text.Medium>
+        <Divider />
+        <SideBarMenuItem disabled={true}>
+          <Text.Medium title="Em breve...">Configurações</Text.Medium>
         </SideBarMenuItem>
         <SideBarMenuItem>
           <Text.Medium>Sair</Text.Medium>
