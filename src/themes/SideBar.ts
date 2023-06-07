@@ -33,6 +33,9 @@ export const SideBarMenuItem = styled.li<{
   selected?: boolean
 }>`
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
   ${({ disabled }) =>
     disabled &&
@@ -44,9 +47,17 @@ export const SideBarMenuItem = styled.li<{
     !disabled &&
     !selected &&
     `
-    p:hover {
-      color: ${colors.VIOLET};
+    &:hover {
       cursor: pointer;
+
+      p {
+        color: ${colors.VIOLET};
+        font-weight: 600;
+      }
+      
+      svg {
+        color: ${colors.VIOLET} !important;
+      }
     }
   `}
   
@@ -57,13 +68,14 @@ export const SideBarMenuItem = styled.li<{
       position: absolute;
       width: 130px;
       height: 52px;
-      background-color: ${colors.PRIMARY_BLACK};
+      background-color: blueviolet;
       border-radius: 70px;
       display: flex;
       align-items: center;
+      justify-content: center;
       padding-left: 50px;
-      opacity: 0.08;
-      margin: -4px 0 0 -40px;
+      opacity: 0.06;
+      margin: 0 0 0 -40px;
     }
     
     p {

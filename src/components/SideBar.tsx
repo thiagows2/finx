@@ -1,3 +1,5 @@
+import { MdPerson, MdDashboard, MdSettings, MdExitToApp } from 'react-icons/md'
+
 import {
   SideBarContainer,
   SideBarHeader,
@@ -18,17 +20,21 @@ export function SideBar() {
       </SideBarHeader>
       <SideBarMenu>
         <SideBarMenuItem disabled={true}>
+          <MdPerson color={colors.LIGHT_GRAY} size={20} />
           <Text.Medium title="Em breve...">Perfil</Text.Medium>
         </SideBarMenuItem>
         <SideBarMenuItem selected={true}>
           <div />
+          <MdDashboard color={colors.VIOLET} size={20} />
           <Text.Medium>Dashboard</Text.Medium>
         </SideBarMenuItem>
         <Divider />
         <SideBarMenuItem disabled={true}>
+          <MdSettings color={colors.LIGHT_GRAY} size={20} />
           <Text.Medium title="Em breve...">Configurações</Text.Medium>
         </SideBarMenuItem>
         <SideBarMenuItem>
+          <MdExitToApp color={colors.LIGHT_GRAY} size={20} />
           <Text.Medium>Sair</Text.Medium>
         </SideBarMenuItem>
       </SideBarMenu>
