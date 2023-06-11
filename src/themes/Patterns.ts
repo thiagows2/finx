@@ -28,6 +28,18 @@ export const theme = createTheme({
     fontSize: 14
   },
   components: {
+    MuiInput: {
+      styleOverrides: {
+        input: {
+          color: colors.DARK_GRAY
+        },
+        underline: {
+          '&:after': {
+            borderBottomColor: colors.VIOLET
+          }
+        }
+      }
+    },
     MuiFormHelperText: {
       styleOverrides: {
         root: {

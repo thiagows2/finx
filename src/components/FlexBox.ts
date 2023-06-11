@@ -18,6 +18,7 @@ interface FlexProps {
   alignItems?: CSSProperties['alignItems']
   gap?: CSSProperties['gap']
   lineHeight?: CSSProperties['lineHeight']
+  width?: CSSProperties['width']
 }
 
 export const Box = styled.div<BoxProps>`
@@ -38,4 +39,5 @@ export const Flex = styled.div<FlexProps>`
   align-items: ${({ alignItems }) => alignItems};
   gap: ${({ gap }) => gap};
   line-height: ${({ lineHeight }) => lineHeight};
+  width: ${({ width }) => width};
 `

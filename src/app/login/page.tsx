@@ -37,8 +37,13 @@ export default function Login() {
 
   async function onSubmit(data: object) {
     try {
-      await login({ data })
-      router.push('/dashboard')
+      const response = await login({ data })
+
+      if (response.data.onboarding === 1) {
+        router.push('/onboarding')
+      } else {
+        router.push('/dashboard')
+      }
     } catch (error: any) {
       showError(error.response.data)
     }
