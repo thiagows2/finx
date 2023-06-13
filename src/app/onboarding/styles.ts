@@ -13,4 +13,13 @@ export const OnboardingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 80px;
+`
+
+export const SalaryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  width: 100%;
 `
