@@ -2,16 +2,24 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import InputAdornment from '@mui/material/InputAdornment'
-import { OnboardingContainer, PageContainer, SalaryContainer } from './styles'
+import {
+  OnboardingContainer,
+  PageContainer,
+  SalaryContainer,
+  TableContainer
+} from './styles'
 import { SideBar } from '@/components/SideBar'
 import { ThemeProvider } from '@mui/material/styles'
 import { theme } from '@/themes/Patterns'
 import { Input, InputLabel } from '@mui/material'
 import { ContainedButton } from '@/components/Button'
 import { EnhancedTable, HeadCell, Data } from '@/components/Table'
+import { AddExpenseModal } from '@/components/Modal'
 
 export default function Onboarding() {
+  const [showModal, setShowModal] = useState(false)
   const [stage, setStage] = useState(0)
   const { register } = useForm()
 
@@ -32,7 +40,8 @@ export default function Onboarding() {
   const rows = [
     createData('Aluguel', 700, 'Moradia', 'Aluguel do apartamento'),
     createData('Internet', 105, 'Moradia'),
-    createData('Luz', 120, 'Moradia')
+    createData('Luz', 120, 'Moradia'),
+    createData('Mercado', 500, 'Alimentação')
   ]
 
   const headCells: readonly HeadCell[] = [
@@ -85,7 +94,24 @@ export default function Onboarding() {
               </ContainedButton>
             </SalaryContainer>
           )}
-          {stage === 1 && <EnhancedTable rows={rows} headCells={headCells} />}
+          {stage === 1 && (
+            <TableContainer>
+              <ContainedButton
+                style={{ width: '200px', alignSelf: 'flex-end' }}
+                onClick={() => setShowModal(true)}
+              >
+                Nova despesa
+              </ContainedButton>
+              <EnhancedTable rows={rows} headCells={headCells} />
+              <ContainedButton style={{ width: '320px', alignSelf: 'center' }}>
+                Confirmar
+              </ContainedButton>
+            </TableContainer>
+          )}
+          <AddExpenseModal
+            show={showModal}
+            onClose={() => setShowModal(false)}
+          />
         </OnboardingContainer>
       </PageContainer>
     </ThemeProvider>

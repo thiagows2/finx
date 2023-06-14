@@ -23,3 +23,11 @@ export const SalaryContainer = styled.div`
   max-width: 500px;
   width: 100%;
 `
+
+export const TableContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 95%;
+  width: 100%;
+`
