@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { ReactNode } from 'react'
 import { Inter } from 'next/font/google'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 import StyledComponentsRegistry from '../../lib/registry'
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html>
       <body className={inter.className}>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <AuthProvider>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </AuthProvider>
       </body>
     </html>
   )

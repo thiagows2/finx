@@ -6,10 +6,9 @@ export const ModalContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 250px;
-  max-height: 330px;
+  max-width: 270px;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   background-color: ${colors.PRIMARY_WHITE};
   position: absolute;
   top: 50%;

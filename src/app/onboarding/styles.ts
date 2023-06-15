@@ -20,7 +20,7 @@ export const SalaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
 `
 

@@ -22,7 +22,6 @@ export interface Data {
   description: string
   value: number
   category: string
-  note: string
 }
 
 export interface HeadCell {
@@ -309,9 +308,8 @@ export function EnhancedTable({ rows, headCells }: any) {
                     >
                       {row.description}
                     </TableCell>
-                    <TableCell align="right">{row.value}</TableCell>
                     <TableCell>{row.category}</TableCell>
-                    <TableCell>{row.note}</TableCell>
+                    <TableCell>{row.value}</TableCell>
                   </TableRow>
                 )
               })}

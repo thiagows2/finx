@@ -1,7 +1,6 @@
 'use client'
 
-import useAxios from 'axios-hooks'
-import { useRouter } from 'next/navigation'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ThemeProvider } from '@mui/material/styles'
 import { showError } from '@/components/Toast'
@@ -18,34 +17,30 @@ import {
 } from './styles'
 import { colors, theme } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
+import { AuthContext } from '@/contexts/AuthContext'
+
+type SignInData = {
+  email: string
+  password: string
+}
 
 export default function Login() {
-  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const { signIn } = useContext(AuthContext)
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
 
-  const [{ loading }, login] = useAxios(
-    {
-      url: `${process.env.API_BASE_URL}/Auth/login`,
-      method: 'POST'
-    },
-    { manual: true }
-  )
-
   async function onSubmit(data: object) {
     try {
-      const response = await login({ data })
-
-      if (response.data.onboarding === 1) {
-        router.push('/onboarding')
-      } else {
-        router.push('/dashboard')
-      }
+      setLoading(true)
+      await signIn(data as SignInData)
     } catch (error: any) {
       showError(error.response.data)
+    } finally {
+      setLoading(false)
     }
   }
 

@@ -56,7 +56,7 @@ export function AddExpenseModal({ show, onClose }: Props) {
               />
             </InputContainer>
             <ContainedButton
-              sx={{ marginTop: '32px' }}
+              sx={{ margin: '32px 0' }}
               fullWidth={true}
               type="submit"
             >

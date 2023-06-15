@@ -26,19 +26,17 @@ export default function Onboarding() {
   function createData(
     description: string,
     value: number,
-    category: string,
-    note: string = ''
+    category: string
   ): Data {
     return {
       description,
       value,
-      category,
-      note
+      category
     }
   }
 
   const rows = [
-    createData('Aluguel', 700, 'Moradia', 'Aluguel do apartamento'),
+    createData('Aluguel', 700, 'Moradia'),
     createData('Internet', 105, 'Moradia'),
     createData('Luz', 120, 'Moradia'),
     createData('Mercado', 500, 'Alimentação')
@@ -52,22 +50,16 @@ export default function Onboarding() {
       label: 'Descrição'
     },
     {
-      id: 'value',
-      numeric: true,
-      disablePadding: false,
-      label: 'Valor'
-    },
-    {
       id: 'category',
       numeric: false,
       disablePadding: false,
       label: 'Categoria'
     },
     {
-      id: 'note',
+      id: 'value',
       numeric: false,
       disablePadding: false,
-      label: 'Comentários'
+      label: 'Valor'
     }
   ]
 

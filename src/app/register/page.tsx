@@ -33,7 +33,7 @@ export default function Register() {
 
   const [{ loading }, createUser] = useAxios(
     {
-      url: `${process.env.API_BASE_URL}/Auth/register`,
+      url: `/Auth/register`,
       method: 'POST'
     },
     { manual: true }
