@@ -1,3 +1,3 @@
-import { getAPIClient } from './axios'
+import { buildAxios } from './axios'
 
-export const api = getAPIClient()
+export const api = buildAxios()

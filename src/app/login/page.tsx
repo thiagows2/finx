@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ThemeProvider } from '@mui/material/styles'
 import { showError } from '@/components/Toast'
@@ -18,6 +18,7 @@ import {
 import { colors, theme } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
 import { AuthContext } from '@/contexts/AuthContext'
+import { useRouter } from 'next/navigation'
 
 type SignInData = {
   email: string
@@ -25,6 +26,8 @@ type SignInData = {
 }
 
 export default function Login() {
+  const { push } = useRouter()
+  const { isAuthenticated } = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
   const { signIn } = useContext(AuthContext)
   const {
@@ -42,6 +45,10 @@ export default function Login() {
     } finally {
       setLoading(false)
     }
+  }
+
+  if (isAuthenticated) {
+    push('/dashboard')
   }
 
   return (

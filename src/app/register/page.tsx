@@ -14,6 +14,9 @@ import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
 import { PageContainer, RegisterForm } from './styles'
 import { theme } from '@/themes/Patterns'
+import { api } from '@/services/api'
+import { AuthContext } from '@/contexts/AuthContext'
+import { useContext, useEffect } from 'react'
 
 type userData = {
   name?: string
@@ -23,6 +26,7 @@ type userData = {
 }
 
 export default function Register() {
+  const { isAuthenticated } = useContext(AuthContext)
   const { push } = useRouter()
   const formOptions = { resolver: yupResolver(formSchema) }
   const {
@@ -34,7 +38,8 @@ export default function Register() {
   const [{ loading }, createUser] = useAxios(
     {
       url: `/Auth/register`,
-      method: 'POST'
+      method: 'POST',
+      baseURL: api.defaults.baseURL
     },
     { manual: true }
   )
@@ -58,6 +63,10 @@ export default function Register() {
     } catch (error: any) {
       showError(error.response.data)
     }
+  }
+
+  if (isAuthenticated) {
+    push('/dashboard')
   }
 
   return (

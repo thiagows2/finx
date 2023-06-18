@@ -10,8 +10,12 @@ import {
 } from '@/themes/SideBar'
 import { colors } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
+import { AuthContext } from '@/contexts/AuthContext'
+import { useContext } from 'react'
 
 export function SideBar() {
+  const { signOut } = useContext(AuthContext)
+
   return (
     <SideBarContainer>
       <SideBarHeader>
@@ -33,7 +37,7 @@ export function SideBar() {
           <MdSettings color={colors.LIGHT_GRAY} size={20} />
           <Text.Medium title="Em breve...">Configurações</Text.Medium>
         </SideBarMenuItem>
-        <SideBarMenuItem>
+        <SideBarMenuItem onClick={signOut}>
           <MdExitToApp color={colors.LIGHT_GRAY} size={20} />
           <Text.Medium>Sair</Text.Medium>
         </SideBarMenuItem>
