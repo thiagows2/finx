@@ -18,7 +18,6 @@ import {
 import { colors, theme } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
 import { AuthContext } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
 
 type SignInData = {
   email: string
@@ -26,10 +25,8 @@ type SignInData = {
 }
 
 export default function Login() {
-  const { push } = useRouter()
-  const { isAuthenticated } = useContext(AuthContext)
-  const [loading, setLoading] = useState(false)
   const { signIn } = useContext(AuthContext)
+  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -47,10 +44,6 @@ export default function Login() {
     }
   }
 
-  if (isAuthenticated) {
-    push('/dashboard')
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
@@ -58,12 +51,14 @@ export default function Login() {
           <OutlinedInput
             label="E-mail"
             type="email"
+            autoComplete="on"
             helperText={<>{errors.email && 'Informe um e-mail'}</>}
             {...register('email', { required: true })}
           />
           <OutlinedInput
             label="Senha"
             type="password"
+            autoComplete="on"
             helperText={<>{errors.password && 'Informe uma senha'}</>}
             {...register('password', { required: true })}
           />

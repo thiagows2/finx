@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import InputAdornment from '@mui/material/InputAdornment'
@@ -13,33 +13,85 @@ import {
 import { SideBar } from '@/components/SideBar'
 import { ThemeProvider } from '@mui/material/styles'
 import { theme } from '@/themes/Patterns'
-import { Input, InputLabel } from '@mui/material'
+import { CircularProgress, Input, InputLabel } from '@mui/material'
 import { ContainedButton } from '@/components/Button'
 import { EnhancedTable, HeadCell, Data } from '@/components/Table'
 import { AddExpenseModal } from '@/components/Modal'
+import useAxios, { configure } from 'axios-hooks'
+import { api } from '@/services/api'
+import { SpinnerContainer } from '@/themes/Spinner'
+import { useRouter } from 'next/navigation'
 
 export default function Onboarding() {
+  configure({ axios: api })
+
+  const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-  const [stage, setStage] = useState(0)
+  const [stage, setStage] = useState(null)
   const { register } = useForm()
 
-  function createData(
-    description: string,
-    value: number,
-    category: string
-  ): Data {
+  const [{ loading: loadingStage }, getStage] = useAxios(
+    {
+      url: '/Onboarding/onboarding-state'
+    },
+    { manual: true }
+  )
+  const [, updateStage] = useAxios(
+    {
+      url: `/Onboarding/update-onboarding/${stage}`,
+      method: 'PUT'
+    },
+    { manual: true }
+  )
+  const [{ data: expenseTypes = [] }] = useAxios({
+    url: '/Expense/expense-types'
+  })
+  const [, getExpenses] = useAxios(
+    {
+      url: '/Expense/expenses'
+    },
+    { manual: true }
+  )
+  const [, updateExpenses] = useAxios(
+    {
+      url: '/Expense/expenses',
+      method: 'PUT'
+    },
+    { manual: true }
+  )
+
+  const handleSetStage = useCallback(async () => {
+    const response = await getStage()
+    const { onboarding } = response.data
+
+    if (onboarding) {
+      setStage(onboarding)
+    } else {
+      router.push('/dashboard')
+    }
+  }, [getStage, router])
+
+  useEffect(() => {
+    if (stage === null) {
+      handleSetStage()
+    } else {
+      updateStage()
+    }
+  }, [handleSetStage, stage, updateStage])
+
+  function createData(description: string, cost: number, type: number): Data {
     return {
       description,
-      value,
-      category
+      cost,
+      type
     }
   }
 
   const rows = [
-    createData('Aluguel', 700, 'Moradia'),
-    createData('Internet', 105, 'Moradia'),
-    createData('Luz', 120, 'Moradia'),
-    createData('Mercado', 500, 'Alimentação')
+    createData('Aluguel', 700, 0),
+    createData('Internet', 105, 0),
+    createData('Luz', 120, 0),
+    createData('Mercado', 500, 0)
   ]
 
   const headCells: readonly HeadCell[] = [
@@ -50,13 +102,13 @@ export default function Onboarding() {
       label: 'Descrição'
     },
     {
-      id: 'category',
+      id: 'type',
       numeric: false,
       disablePadding: false,
       label: 'Categoria'
     },
     {
-      id: 'value',
+      id: 'cost',
       numeric: false,
       disablePadding: false,
       label: 'Valor'
@@ -68,6 +120,11 @@ export default function Onboarding() {
       <PageContainer>
         <SideBar />
         <OnboardingContainer>
+          {loadingStage && (
+            <SpinnerContainer>
+              <CircularProgress />
+            </SpinnerContainer>
+          )}
           {stage === 0 && (
             <SalaryContainer>
               <InputLabel htmlFor="monthly_salary">
@@ -94,7 +151,11 @@ export default function Onboarding() {
               >
                 Nova despesa
               </ContainedButton>
-              <EnhancedTable rows={rows} headCells={headCells} />
+              <EnhancedTable
+                rows={rows}
+                headCells={headCells}
+                categories={expenseTypes}
+              />
               <ContainedButton style={{ width: '320px', alignSelf: 'center' }}>
                 Confirmar
               </ContainedButton>
@@ -102,7 +163,8 @@ export default function Onboarding() {
           )}
           <AddExpenseModal
             show={showModal}
-            onClose={() => setShowModal(false)}
+            setShow={setShowModal}
+            categories={Object.values(expenseTypes)}
           />
         </OnboardingContainer>
       </PageContainer>

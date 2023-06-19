@@ -1,35 +1,45 @@
 import { useForm } from 'react-hook-form'
 import Modal from '@mui/material/Modal'
+import Select from '@mui/material/Select'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
 
-import { ModalContent, InputContainer, CloseIcon } from '@/themes/Modal'
+import { ModalContent, InputContainer, CloseIcon, Error } from '@/themes/Modal'
 import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
 import { Text } from '@/components/Text'
 import { MdClose } from 'react-icons/md'
 
-interface Props {
+type Props = {
   show: boolean
-  onClose: () => void
+  setShow: (state: boolean) => void
+  categories: string[]
 }
 
-export function AddExpenseModal({ show, onClose }: Props) {
+export function AddExpenseModal({ show, setShow, categories }: Props) {
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
 
+  function closeModal() {
+    setShow(false)
+    reset()
+  }
+
   function onSubmit(data: object) {
-    console.log(data)
-    onClose()
+    closeModal()
   }
 
   return (
     <div>
-      <Modal open={show} onClose={onClose}>
+      <Modal open={show} onClose={() => closeModal()}>
         <ModalContent>
           <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
-            <CloseIcon onClick={onClose}>
+            <CloseIcon onClick={() => closeModal()}>
               <MdClose size={24} />
             </CloseIcon>
             <Text.Title fontSize={18}>Nova despeza</Text.Title>
@@ -48,15 +58,25 @@ export function AddExpenseModal({ show, onClose }: Props) {
                 {...register('value', { required: true })}
               />
 
-              <OutlinedInput
-                label="Categoria"
-                sx={{ width: '100%' }}
-                helperText={<>{errors.category && 'Obrigatório'}</>}
-                {...register('category', { required: true })}
-              />
+              <FormControl size="small">
+                <InputLabel>Categoria</InputLabel>
+                <Select
+                  defaultValue=""
+                  label="Categoria"
+                  sx={{ width: '100%' }}
+                  {...register('category', { required: true })}
+                >
+                  {categories.map((category: string, index) => (
+                    <MenuItem key={`${category}_${index}`} value={index}>
+                      {category}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Error>{errors.category && 'Obrigatório'}</Error>
+              </FormControl>
             </InputContainer>
             <ContainedButton
-              sx={{ margin: '32px 0' }}
+              sx={{ margin: '24px 0' }}
               fullWidth={true}
               type="submit"
             >
