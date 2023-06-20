@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ThemeProvider } from '@mui/material/styles'
 import { showError } from '@/components/Toast'

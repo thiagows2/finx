@@ -10,14 +10,20 @@ import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
 import { Text } from '@/components/Text'
 import { MdClose } from 'react-icons/md'
+import { Data } from '@/components/Table'
+import { useState } from 'react'
+import { showSuccess } from '@/components/Toast'
+import { ToastContainer } from 'react-toastify'
 
 type Props = {
   show: boolean
   setShow: (state: boolean) => void
+  onAdd: (data: Data) => Promise<void>
   categories: string[]
 }
 
-export function AddExpenseModal({ show, setShow, categories }: Props) {
+export function AddExpenseModal({ show, setShow, onAdd, categories }: Props) {
+  const [loading, setLoading] = useState(false)
   const {
     reset,
     register,
@@ -30,12 +36,16 @@ export function AddExpenseModal({ show, setShow, categories }: Props) {
     reset()
   }
 
-  function onSubmit(data: object) {
+  async function onSubmit(data: object) {
+    setLoading(true)
+    await onAdd(data as Data)
+    showSuccess('Despesa adicionada!')
     closeModal()
+    setLoading(false)
   }
 
   return (
-    <div>
+    <>
       <Modal open={show} onClose={() => closeModal()}>
         <ModalContent>
           <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
@@ -55,9 +65,8 @@ export function AddExpenseModal({ show, setShow, categories }: Props) {
                 label="Valor"
                 helperText={<>{errors.value && 'Obrigatório'}</>}
                 sx={{ width: '100%' }}
-                {...register('value', { required: true })}
+                {...register('cost', { required: true, valueAsNumber: true })}
               />
-
               <FormControl size="small">
                 <InputLabel>Categoria</InputLabel>
                 <Select
@@ -79,12 +88,14 @@ export function AddExpenseModal({ show, setShow, categories }: Props) {
               sx={{ margin: '24px 0' }}
               fullWidth={true}
               type="submit"
+              loading={loading}
             >
               Adicionar
             </ContainedButton>
           </form>
         </ModalContent>
       </Modal>
-    </div>
+      <ToastContainer />
+    </>
   )
 }

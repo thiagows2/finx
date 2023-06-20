@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import InputAdornment from '@mui/material/InputAdornment'
@@ -27,7 +27,7 @@ export default function Onboarding() {
 
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-  const [stage, setStage] = useState(null)
+  const [stage, setStage] = useState<number | null>(null)
   const { register } = useForm()
 
   const [{ loading: loadingStage }, getStage] = useAxios(
@@ -46,12 +46,9 @@ export default function Onboarding() {
   const [{ data: expenseTypes = [] }] = useAxios({
     url: '/Expense/expense-types'
   })
-  const [, getExpenses] = useAxios(
-    {
-      url: '/Expense/expenses'
-    },
-    { manual: true }
-  )
+  const [{ data: expenses }, getExpenses] = useAxios({
+    url: '/Expense/expenses'
+  })
   const [, updateExpenses] = useAxios(
     {
       url: '/Expense/expenses',
@@ -59,25 +56,6 @@ export default function Onboarding() {
     },
     { manual: true }
   )
-
-  const handleSetStage = useCallback(async () => {
-    const response = await getStage()
-    const { onboarding } = response.data
-
-    if (onboarding) {
-      setStage(onboarding)
-    } else {
-      router.push('/dashboard')
-    }
-  }, [getStage, router])
-
-  useEffect(() => {
-    if (stage === null) {
-      handleSetStage()
-    } else {
-      updateStage()
-    }
-  }, [handleSetStage, stage, updateStage])
 
   function createData(description: string, cost: number, type: number): Data {
     return {
@@ -87,12 +65,20 @@ export default function Onboarding() {
     }
   }
 
-  const rows = [
-    createData('Aluguel', 700, 0),
-    createData('Internet', 105, 0),
-    createData('Luz', 120, 0),
-    createData('Mercado', 500, 0)
-  ]
+  const initialRows = useMemo(
+    () => [
+      createData('Aluguel', 700, 0),
+      createData('Internet', 105, 0),
+      createData('Luz', 120, 0),
+      createData('Mercado', 500, 0)
+    ],
+    []
+  )
+
+  const bodyRows = useMemo(
+    () => expenses ?? initialRows,
+    [expenses, initialRows]
+  )
 
   const headCells: readonly HeadCell[] = [
     {
@@ -114,6 +100,35 @@ export default function Onboarding() {
       label: 'Valor'
     }
   ]
+
+  async function handleSetStage() {
+    const response = await getStage()
+    const { onboarding } = response.data
+
+    if (onboarding) {
+      setStage(onboarding)
+    } else {
+      router.push('/dashboard')
+    }
+  }
+
+  useEffect(() => {
+    if (stage === null) {
+      handleSetStage()
+    } else {
+      updateStage()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stage, updateStage])
+
+  const onAddExpense = useCallback(
+    async (data: Data) => {
+      const newExpenses = [...bodyRows, data]
+      await updateExpenses({ data: newExpenses })
+      await getExpenses()
+    },
+    [getExpenses, bodyRows, updateExpenses]
+  )
 
   return (
     <ThemeProvider theme={theme}>
@@ -152,7 +167,7 @@ export default function Onboarding() {
                 Nova despesa
               </ContainedButton>
               <EnhancedTable
-                rows={rows}
+                rows={bodyRows}
                 headCells={headCells}
                 categories={expenseTypes}
               />
@@ -165,6 +180,7 @@ export default function Onboarding() {
             show={showModal}
             setShow={setShowModal}
             categories={Object.values(expenseTypes)}
+            onAdd={onAddExpense}
           />
         </OnboardingContainer>
       </PageContainer>
