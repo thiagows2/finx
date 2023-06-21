@@ -7,9 +7,16 @@ export const PageContainer = styled.div`
   flex-wrap: wrap;
   height: 100vh;
   margin: 0 80px;
+  overflow: hidden;
+  gap: 32px;
+
+  @media (max-width: 1400px) {
+    margin: 0 60px;
+  }
 
   @media (max-width: 768px) {
     justify-content: start;
+    margin: 0 24px;
   }
 `
 
@@ -26,19 +33,18 @@ export const LoginForm = styled.form`
   margin: 6% 0;
 
   @media (max-width: 768px) {
-    padding: 32px 24px;
+    padding: 40px;
   }
 `
 
 export const TitleContainer = styled.div`
   width: fit-content;
   height: 320px;
-  margin-right: 10%;
 `
 
 export const Image = styled.img`
-  margin-top: 10%;
-  width: 300px;
+  margin-top: 12%;
+  width: 280px;
 
   @media (max-width: 768px) {
     display: none;

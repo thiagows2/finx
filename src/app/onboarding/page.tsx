@@ -51,12 +51,8 @@ export default function Onboarding() {
     },
     { manual: true }
   )
-  const [{ data: expenseTypes = [] }] = useAxios({
-    url: '/Expense/expense-types'
-  })
-  const [{ data: expenses }, getExpenses] = useAxios({
-    url: '/Expense/expenses'
-  })
+  const [{ data: expenseTypes = [] }] = useAxios('/Expense/expense-types')
+  const [{ data: expenses }, getExpenses] = useAxios('/Expense/expenses')
   const [, updateExpenses] = useAxios(
     {
       url: '/Expense/expenses',

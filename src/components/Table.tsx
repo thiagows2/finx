@@ -17,6 +17,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { visuallyHidden } from '@mui/utils'
+import { formatCurrency } from '@/helpers/formatCurrency'
 
 export interface Data {
   id: string
@@ -247,13 +248,6 @@ export function EnhancedTable({ rows, headCells, categories, onDelete }: any) {
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
-  }
-
-  const formatCurrency = (value: number) => {
-    return value.toLocaleString('pt-br', {
-      style: 'currency',
-      currency: 'BRL'
-    })
   }
 
   const isSelected = (id: string) => selected.indexOf(id) !== -1

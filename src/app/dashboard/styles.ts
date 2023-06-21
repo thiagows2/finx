@@ -16,6 +16,10 @@ export const DashboardContainer = styled.div`
   height: 100%;
   gap: 48px;
   margin: 32px 64px;
+
+  @media (max-width: 768px) {
+    margin: 32px 40px;
+  }
 `
 
 export const TitleContainer = styled.div`
@@ -25,12 +29,18 @@ export const TitleContainer = styled.div`
 export const SummaryContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  max-width: 700px;
+  width: 90%;
+  max-width: 724px;
   background: ${colors.PRIMARY_WHITE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 14px;
   padding: 28px;
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
+    width: fit-content;
+    gap: 8px;
+  }
 `
 
 export const SummaryItem = styled.div`
@@ -48,7 +58,7 @@ export const PieChartContainer = styled.div`
   width: 100%;
   height: 272px;
   padding: 30px 20px;
-  max-width: 328px;
+  max-width: 338px;
   background: ${colors.PRIMARY_WHITE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 18px;
