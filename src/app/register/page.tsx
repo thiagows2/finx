@@ -53,7 +53,7 @@ export default function Register() {
 
       setTimeout(async () => {
         await push('/login')
-      }, 2000)
+      }, 3000)
       showSuccess(
         'Sua conta foi criada com sucesso! Por favor, aguarde enquanto você é redirecionado para a tela de login.'
       )

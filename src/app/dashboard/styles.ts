@@ -15,7 +15,7 @@ export const DashboardContainer = styled.div`
   width: 100%;
   height: 100%;
   gap: 48px;
-  margin: 32px 48px;
+  margin: 32px 64px;
 `
 
 export const TitleContainer = styled.div`

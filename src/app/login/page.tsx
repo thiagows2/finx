@@ -39,7 +39,6 @@ export default function Login() {
       await signIn(data as SignInData)
     } catch (error: any) {
       showError(error.response.data)
-    } finally {
       setLoading(false)
     }
   }

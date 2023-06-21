@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import uniqid from 'uniqid'
 
 import InputAdornment from '@mui/material/InputAdornment'
 import {
@@ -26,19 +27,25 @@ export default function Onboarding() {
   configure({ axios: api })
 
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [loadingDelete, setLoadingDelete] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [stage, setStage] = useState<number | null>(null)
+  const [currentStage, setStage] = useState(0)
   const { register } = useForm()
 
-  const [{ loading: loadingStage }, getStage] = useAxios(
+  const [{ data: stageData = {}, loading: loadingStage }, getStage] = useAxios({
+    url: '/Onboarding/onboarding-state'
+  })
+  const [{ loading: loadingUpdate }, updateStage] = useAxios(
     {
-      url: '/Onboarding/onboarding-state'
+      url: `/Onboarding/update-onboarding/${currentStage + 1}`,
+      method: 'PUT'
     },
     { manual: true }
   )
-  const [, updateStage] = useAxios(
+  const [, finish] = useAxios(
     {
-      url: `/Onboarding/update-onboarding/${stage}`,
+      url: 'Onboarding/finish-onboarding',
       method: 'PUT'
     },
     { manual: true }
@@ -59,6 +66,7 @@ export default function Onboarding() {
 
   function createData(description: string, cost: number, type: number): Data {
     return {
+      id: '',
       description,
       cost,
       type
@@ -67,18 +75,22 @@ export default function Onboarding() {
 
   const initialRows = useMemo(
     () => [
-      createData('Aluguel', 700, 0),
-      createData('Internet', 105, 0),
-      createData('Luz', 120, 0),
-      createData('Mercado', 500, 0)
+      createData('Aluguel', 700, 3),
+      createData('Internet', 105, 2),
+      createData('Luz', 120, 2),
+      createData('Mercado', 500, 5)
     ],
     []
   )
 
-  const bodyRows = useMemo(
-    () => expenses ?? initialRows,
-    [expenses, initialRows]
-  )
+  const bodyRows = useMemo(() => {
+    const data = expenses ?? initialRows
+
+    return data.map((expense: Data) => {
+      expense.id = uniqid(`${expense.description}-`)
+      return expense
+    })
+  }, [expenses, initialRows])
 
   const headCells: readonly HeadCell[] = [
     {
@@ -101,25 +113,15 @@ export default function Onboarding() {
     }
   ]
 
-  async function handleSetStage() {
-    const response = await getStage()
-    const { onboarding } = response.data
+  useEffect(() => {
+    const { onboarding } = stageData
 
     if (onboarding) {
       setStage(onboarding)
-    } else {
+    } else if (onboarding === null) {
       router.push('/dashboard')
     }
-  }
-
-  useEffect(() => {
-    if (stage === null) {
-      handleSetStage()
-    } else {
-      updateStage()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stage, updateStage])
+  }, [router, stageData])
 
   const onAddExpense = useCallback(
     async (data: Data) => {
@@ -130,51 +132,86 @@ export default function Onboarding() {
     [getExpenses, bodyRows, updateExpenses]
   )
 
+  async function onContinue(nextStage: number) {
+    await updateStage({ data: { onboarding: nextStage } })
+    await getStage()
+  }
+
+  async function onConfirm() {
+    setLoading(true)
+    await finish()
+    await router.push('/dashboard')
+  }
+
+  const onDelete = useCallback(
+    async (selectedIds: string[]) => {
+      setLoadingDelete(true)
+      const newExpenses = bodyRows.filter(
+        (row: any) => !selectedIds.includes(row.id)
+      )
+      await updateExpenses({ data: newExpenses })
+      await getExpenses()
+      setLoadingDelete(false)
+    },
+    [bodyRows, getExpenses, updateExpenses]
+  )
+
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
         <SideBar />
         <OnboardingContainer>
-          {loadingStage && (
+          {(loadingDelete || loadingStage) && !loadingUpdate ? (
             <SpinnerContainer>
               <CircularProgress />
             </SpinnerContainer>
-          )}
-          {stage === 0 && (
-            <SalaryContainer>
-              <InputLabel htmlFor="monthly_salary">
-                Qual é o seu salário mensal?
-              </InputLabel>
-              <Input
-                id="monthly_salary"
-                sx={{ marginBottom: '20px' }}
-                startAdornment={
-                  <InputAdornment position="start">R$</InputAdornment>
-                }
-                {...register('monthly_salary')}
-              />
-              <ContainedButton onClick={() => setStage(1)}>
-                Continuar
-              </ContainedButton>
-            </SalaryContainer>
-          )}
-          {stage === 1 && (
-            <TableContainer>
-              <ContainedButton
-                style={{ width: '200px', alignSelf: 'flex-end' }}
-                onClick={() => setShowModal(true)}
-              >
-                Nova despesa
-              </ContainedButton>
-              <EnhancedTable
-                rows={bodyRows}
-                headCells={headCells}
-                categories={expenseTypes}
-              />
-              <ContainedButton style={{ width: '320px', alignSelf: 'center' }}>
-                Confirmar
-              </ContainedButton>
-            </TableContainer>
+          ) : (
+            <>
+              {currentStage === 1 && (
+                <SalaryContainer>
+                  <InputLabel htmlFor="monthly_salary">
+                    Qual é o seu salário mensal?
+                  </InputLabel>
+                  <Input
+                    id="monthly_salary"
+                    sx={{ marginBottom: '20px' }}
+                    startAdornment={
+                      <InputAdornment position="start">R$</InputAdornment>
+                    }
+                    {...register('monthly_salary')}
+                  />
+                  <ContainedButton
+                    loading={loadingUpdate}
+                    onClick={() => onContinue(2)}
+                  >
+                    Continuar
+                  </ContainedButton>
+                </SalaryContainer>
+              )}
+              {currentStage === 2 && (
+                <TableContainer>
+                  <ContainedButton
+                    style={{ width: '160px', alignSelf: 'flex-end' }}
+                    onClick={() => setShowModal(true)}
+                  >
+                    Nova despesa
+                  </ContainedButton>
+                  <EnhancedTable
+                    rows={bodyRows}
+                    headCells={headCells}
+                    categories={expenseTypes}
+                    onDelete={onDelete}
+                  />
+                  <ContainedButton
+                    style={{ width: '320px', alignSelf: 'center' }}
+                    onClick={() => onConfirm()}
+                    loading={loading}
+                  >
+                    Confirmar
+                  </ContainedButton>
+                </TableContainer>
+              )}
+            </>
           )}
           <AddExpenseModal
             show={showModal}
