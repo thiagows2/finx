@@ -15,8 +15,6 @@ import { OutlinedInput } from '@/components/Input'
 import { PageContainer, RegisterForm } from './styles'
 import { theme } from '@/themes/Patterns'
 import { api } from '@/services/api'
-import { AuthContext } from '@/contexts/AuthContext'
-import { useContext, useEffect } from 'react'
 
 type userData = {
   name?: string
@@ -26,7 +24,6 @@ type userData = {
 }
 
 export default function Register() {
-  const { isAuthenticated } = useContext(AuthContext)
   const { push } = useRouter()
   const formOptions = { resolver: yupResolver(formSchema) }
   const {
@@ -54,19 +51,15 @@ export default function Register() {
         }
       })
 
-      setTimeout(() => {
-        push('/login')
-      }, 500)
+      setTimeout(async () => {
+        await push('/login')
+      }, 3000)
       showSuccess(
         'Sua conta foi criada com sucesso! Por favor, aguarde enquanto você é redirecionado para a tela de login.'
       )
     } catch (error: any) {
       showError(error.response.data)
     }
-  }
-
-  if (isAuthenticated) {
-    push('/dashboard')
   }
 
   return (

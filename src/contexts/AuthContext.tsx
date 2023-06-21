@@ -35,8 +35,6 @@ export function AuthProvider({ children }: any) {
   const isAuthenticated = !!user
   const router = useRouter()
 
-  console.log('user', user)
-
   const [, signInRequest] = useAxios(
     {
       url: '/Auth/login',
@@ -71,7 +69,7 @@ export function AuthProvider({ children }: any) {
 
   async function signIn({ email, password }: SignInData) {
     const response = await signInRequest({ data: { email, password } })
-    const { token, username, email: userEmail } = response.data
+    const { onboarding, token, username, email: userEmail } = response.data
 
     api.defaults.headers.Authorization = `Bearer ${token}`
 
@@ -84,7 +82,11 @@ export function AuthProvider({ children }: any) {
       email: userEmail
     })
 
-    await router.push('/dashboard')
+    if (onboarding) {
+      await router.push('/onboarding')
+    } else {
+      await router.push('/dashboard')
+    }
   }
 
   async function signOut() {

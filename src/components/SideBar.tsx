@@ -12,6 +12,7 @@ import { colors } from '@/themes/Patterns'
 import { Text } from '@/components/Text'
 import { AuthContext } from '@/contexts/AuthContext'
 import { useContext } from 'react'
+import Tooltip from '@mui/material/Tooltip'
 
 export function SideBar() {
   const { signOut } = useContext(AuthContext)
@@ -25,7 +26,9 @@ export function SideBar() {
       <SideBarMenu>
         <SideBarMenuItem disabled={true}>
           <MdPerson color={colors.LIGHT_GRAY} size={20} />
-          <Text.Medium title="Em breve...">Perfil</Text.Medium>
+          <Tooltip title="Em breve...">
+            <Text.Medium>Perfil</Text.Medium>
+          </Tooltip>
         </SideBarMenuItem>
         <SideBarMenuItem selected={true}>
           <div />
@@ -35,7 +38,9 @@ export function SideBar() {
         <Divider />
         <SideBarMenuItem disabled={true}>
           <MdSettings color={colors.LIGHT_GRAY} size={20} />
-          <Text.Medium title="Em breve...">Configurações</Text.Medium>
+          <Tooltip title="Em breve...">
+            <Text.Medium>Configurações</Text.Medium>
+          </Tooltip>
         </SideBarMenuItem>
         <SideBarMenuItem onClick={signOut}>
           <MdExitToApp color={colors.LIGHT_GRAY} size={20} />

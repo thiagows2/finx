@@ -33,3 +33,10 @@ export const CloseIcon = styled.div`
   right: 24px;
   top: 24px;
 `
+
+export const Error = styled.span`
+  margin-top: 4px;
+  font-size: 12px;
+  margin-left: 14px;
+  color: ${colors.ERROR_RED};
+`

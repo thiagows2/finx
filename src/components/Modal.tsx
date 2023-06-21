@@ -1,35 +1,55 @@
 import { useForm } from 'react-hook-form'
 import Modal from '@mui/material/Modal'
+import Select from '@mui/material/Select'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
 
-import { ModalContent, InputContainer, CloseIcon } from '@/themes/Modal'
+import { ModalContent, InputContainer, CloseIcon, Error } from '@/themes/Modal'
 import { ContainedButton } from '@/components/Button'
 import { OutlinedInput } from '@/components/Input'
 import { Text } from '@/components/Text'
 import { MdClose } from 'react-icons/md'
+import { Data } from '@/components/Table'
+import { useState } from 'react'
+import { showSuccess } from '@/components/Toast'
+import { ToastContainer } from 'react-toastify'
 
-interface Props {
+type Props = {
   show: boolean
-  onClose: () => void
+  setShow: (state: boolean) => void
+  onAdd: (data: Data) => Promise<void>
+  categories: string[]
 }
 
-export function AddExpenseModal({ show, onClose }: Props) {
+export function AddExpenseModal({ show, setShow, onAdd, categories }: Props) {
+  const [loading, setLoading] = useState(false)
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
 
-  function onSubmit(data: object) {
-    console.log(data)
-    onClose()
+  function closeModal() {
+    setShow(false)
+    reset()
+  }
+
+  async function onSubmit(data: object) {
+    setLoading(true)
+    await onAdd(data as Data)
+    showSuccess('Despesa adicionada!')
+    closeModal()
+    setLoading(false)
   }
 
   return (
-    <div>
-      <Modal open={show} onClose={onClose}>
+    <>
+      <Modal open={show} onClose={() => closeModal()}>
         <ModalContent>
           <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
-            <CloseIcon onClick={onClose}>
+            <CloseIcon onClick={() => closeModal()}>
               <MdClose size={24} />
             </CloseIcon>
             <Text.Title fontSize={18}>Nova despeza</Text.Title>
@@ -45,26 +65,37 @@ export function AddExpenseModal({ show, onClose }: Props) {
                 label="Valor"
                 helperText={<>{errors.value && 'Obrigatório'}</>}
                 sx={{ width: '100%' }}
-                {...register('value', { required: true })}
+                {...register('cost', { required: true, valueAsNumber: true })}
               />
-
-              <OutlinedInput
-                label="Categoria"
-                sx={{ width: '100%' }}
-                helperText={<>{errors.category && 'Obrigatório'}</>}
-                {...register('category', { required: true })}
-              />
+              <FormControl size="small">
+                <InputLabel>Categoria</InputLabel>
+                <Select
+                  defaultValue=""
+                  label="Categoria"
+                  sx={{ width: '100%' }}
+                  {...register('category', { required: true })}
+                >
+                  {categories.map((category: string, index) => (
+                    <MenuItem key={`${category}_${index}`} value={index}>
+                      {category}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Error>{errors.category && 'Obrigatório'}</Error>
+              </FormControl>
             </InputContainer>
             <ContainedButton
-              sx={{ margin: '32px 0' }}
+              sx={{ margin: '24px 0' }}
               fullWidth={true}
               type="submit"
+              loading={loading}
             >
               Adicionar
             </ContainedButton>
           </form>
         </ModalContent>
       </Modal>
-    </div>
+      <ToastContainer />
+    </>
   )
 }

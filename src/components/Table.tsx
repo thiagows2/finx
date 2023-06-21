@@ -19,9 +19,10 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { visuallyHidden } from '@mui/utils'
 
 export interface Data {
+  id: string
   description: string
-  value: number
-  category: string
+  cost: number
+  type: number
 }
 
 export interface HeadCell {
@@ -140,11 +141,13 @@ function EnhancedTableHead({
 }
 
 interface EnhancedTableToolbarProps {
-  numSelected: number
+  selected: readonly string[]
+  onDelete: (selected: readonly string[]) => void
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props
+  const { selected, onDelete } = props
+  const numSelected = selected.length
 
   return (
     <Toolbar
@@ -180,7 +183,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Typography>
       )}
       {numSelected > 0 && (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={() => onDelete(selected)}>
           <IconButton>
             <DeleteIcon />
           </IconButton>
@@ -190,9 +193,9 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   )
 }
 
-export function EnhancedTable({ rows, headCells }: any) {
+export function EnhancedTable({ rows, headCells, categories, onDelete }: any) {
   const [order, setOrder] = React.useState<Order>('desc')
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('value')
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('cost')
   const [selected, setSelected] = React.useState<readonly string[]>([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
@@ -208,19 +211,19 @@ export function EnhancedTable({ rows, headCells }: any) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n: any) => n.name)
+      const newSelected = rows.map((n: any) => n.id)
       setSelected(newSelected)
       return
     }
     setSelected([])
   }
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name)
+  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
+    const selectedIndex = selected.indexOf(id)
     let newSelected: readonly string[] = []
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name)
+      newSelected = newSelected.concat(selected, id)
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
@@ -246,7 +249,14 @@ export function EnhancedTable({ rows, headCells }: any) {
     setPage(0)
   }
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1
+  const formatCurrency = (value: number) => {
+    return value.toLocaleString('pt-br', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+  }
+
+  const isSelected = (id: string) => selected.indexOf(id) !== -1
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
@@ -263,7 +273,7 @@ export function EnhancedTable({ rows, headCells }: any) {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar selected={selected} onDelete={onDelete} />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -277,17 +287,16 @@ export function EnhancedTable({ rows, headCells }: any) {
             />
             <TableBody>
               {visibleRows.map((row: any, index) => {
-                const isItemSelected = isSelected(row.description)
-                const labelId = `enhanced-table-checkbox-${index}`
+                const isItemSelected = isSelected(row.id)
 
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.description)}
+                    onClick={(event) => handleClick(event, row.id)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.description}
+                    key={row.id}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
@@ -296,20 +305,20 @@ export function EnhancedTable({ rows, headCells }: any) {
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{
-                          'aria-labelledby': labelId
+                          'aria-labelledby': row.id
                         }}
                       />
                     </TableCell>
                     <TableCell
                       component="th"
-                      id={labelId}
+                      id={row.id}
                       scope="row"
                       padding="none"
                     >
                       {row.description}
                     </TableCell>
-                    <TableCell>{row.category}</TableCell>
-                    <TableCell>{row.value}</TableCell>
+                    <TableCell>{categories[row.type]}</TableCell>
+                    <TableCell>{formatCurrency(row.cost)}</TableCell>
                   </TableRow>
                 )
               })}
@@ -329,7 +338,6 @@ export function EnhancedTable({ rows, headCells }: any) {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          // change string label "Rows per page:"
           labelRowsPerPage="Linhas por página"
         />
       </Paper>
