@@ -8,8 +8,8 @@ import InputAdornment from '@mui/material/InputAdornment'
 import {
   OnboardingContainer,
   PageContainer,
-  SalaryContainer,
-  TableContainer
+  TableContainer,
+  SalaryContainer
 } from './styles'
 import { SideBar } from '@/components/SideBar'
 import { ThemeProvider } from '@mui/material/styles'
@@ -22,21 +22,28 @@ import useAxios, { configure } from 'axios-hooks'
 import { api } from '@/services/api'
 import { SpinnerContainer } from '@/themes/Spinner'
 import { useRouter } from 'next/navigation'
-import { showSuccess } from '@/components/Toast'
+import { showError, showSuccess } from '@/components/Toast'
 
 export default function Onboarding() {
   configure({ axios: api })
 
   const router = useRouter()
+  const { watch, register } = useForm()
   const [loading, setLoading] = useState(false)
   const [loadingDelete, setLoadingDelete] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [currentStage, setStage] = useState(0)
-  const { register } = useForm()
 
   const [{ data: stageData = {}, loading: loadingStage }, getStage] = useAxios({
     url: '/Onboarding/onboarding-state'
   })
+  const [, updateSalary] = useAxios(
+    {
+      url: '/Balance',
+      method: 'PUT'
+    },
+    { manual: true }
+  )
   const [{ loading: loadingUpdate }, updateStage] = useAxios(
     {
       url: `/Onboarding/update-onboarding/${currentStage + 1}`,
@@ -44,7 +51,7 @@ export default function Onboarding() {
     },
     { manual: true }
   )
-  const [, finish] = useAxios(
+  const [, finishOnboarding] = useAxios(
     {
       url: 'Onboarding/finish-onboarding',
       method: 'PUT'
@@ -129,14 +136,20 @@ export default function Onboarding() {
     [getExpenses, bodyRows, updateExpenses]
   )
 
-  async function onContinue(nextStage: number) {
-    await updateStage({ data: { onboarding: nextStage } })
+  async function onConfirmSalary() {
+    const salary = watch('monthly_salary')
+    if (!salary) return showError('Salário é obrigatório')
+
+    await updateSalary({ data: { salary } })
+    await updateStage({ data: { onboarding: 2 } })
     await getStage()
   }
 
-  async function onConfirm() {
+  async function onFinish() {
     setLoading(true)
-    await finish()
+
+    await updateExpenses({ data: bodyRows })
+    await finishOnboarding()
     await router.push('/dashboard')
   }
 
@@ -176,11 +189,12 @@ export default function Onboarding() {
                     startAdornment={
                       <InputAdornment position="start">R$</InputAdornment>
                     }
-                    {...register('monthly_salary')}
+                    {...register('monthly_salary', { valueAsNumber: true })}
                   />
                   <ContainedButton
                     loading={loadingUpdate}
-                    onClick={() => onContinue(2)}
+                    onClick={() => onConfirmSalary()}
+                    onKeyPress={() => onConfirmSalary()}
                   >
                     Continuar
                   </ContainedButton>
@@ -202,7 +216,8 @@ export default function Onboarding() {
                   />
                   <ContainedButton
                     style={{ width: '320px', alignSelf: 'center' }}
-                    onClick={() => onConfirm()}
+                    onClick={() => onFinish()}
+                    onKeyPress={() => onFinish()}
                     loading={loading}
                   >
                     Confirmar

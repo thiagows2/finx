@@ -23,7 +23,7 @@ export const OnboardingContainer = styled.div`
 export const SalaryContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   max-width: 350px;
   width: 100%;
 `
