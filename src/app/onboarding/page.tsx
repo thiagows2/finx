@@ -22,6 +22,7 @@ import useAxios, { configure } from 'axios-hooks'
 import { api } from '@/services/api'
 import { SpinnerContainer } from '@/themes/Spinner'
 import { useRouter } from 'next/navigation'
+import { showSuccess } from '@/components/Toast'
 
 export default function Onboarding() {
   configure({ axios: api })
@@ -152,6 +153,7 @@ export default function Onboarding() {
       await updateExpenses({ data: newExpenses })
       await getExpenses()
       setLoadingDelete(false)
+      showSuccess('Despesa(s) excluída(s) com sucesso!')
     },
     [bodyRows, getExpenses, updateExpenses]
   )
