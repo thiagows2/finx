@@ -80,15 +80,11 @@ export default function Dashboard() {
     })
   }, [expenseTypes, expensesByType])
 
-  const baseOptions = {
-    legend: 'none',
-    pieSliceText: 'none',
-    pieHole: 0.75
-  }
   const expenseChart = {
     data: expenseData,
     options: {
-      ...baseOptions,
+      pieSliceText: 'none',
+      pieHole: 0.75,
       slices: {
         0: { color: '382A89' },
         1: { color: '3D0E62' },
@@ -103,7 +99,8 @@ export default function Dashboard() {
   const categoryChart = {
     data: categoryData,
     options: {
-      ...baseOptions,
+      pieSliceText: 'none',
+      pieHole: 0.75,
       slices: {
         0: { color: '03206B' },
         1: { color: '1F43A0' },
@@ -182,20 +179,16 @@ export default function Dashboard() {
                     Despezas
                   </Text.Medium>
                   <Text.Small margin="0">
-                    Destacando os maiores percentuais
+                    Percentuais de gastos mensais
                   </Text.Small>
                 </Flex>
                 <Chart
-                  width={'240px'}
-                  height={'240px'}
+                  width={450}
+                  height={300}
                   chartType="PieChart"
                   data={expenseChart.data}
                   options={expenseChart.options}
-                  style={{
-                    position: 'absolute',
-                    bottom: 2.5,
-                    right: 2.5
-                  }}
+                  style={{ position: 'absolute', left: -20, bottom: -15 }}
                 />
               </PieChartContainer>
               <PieChartContainer>
@@ -208,20 +201,16 @@ export default function Dashboard() {
                     Por categoria
                   </Text.Medium>
                   <Text.Small margin="0">
-                    Destacando os maiores percentuais de categoria de gastos
+                    Percentuais de categoria de despezas
                   </Text.Small>
                 </Flex>
                 <Chart
-                  width={'240px'}
-                  height={'240px'}
+                  width={450}
+                  height={300}
                   chartType="PieChart"
                   data={categoryChart.data}
                   options={categoryChart.options}
-                  style={{
-                    position: 'absolute',
-                    bottom: 2.5,
-                    right: 2.5
-                  }}
+                  style={{ position: 'absolute', left: -20, bottom: -15 }}
                 />
               </PieChartContainer>
             </ChartsContainer>

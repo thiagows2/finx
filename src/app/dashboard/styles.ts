@@ -55,15 +55,16 @@ export const ChartsContainer = styled.div`
 `
 
 export const PieChartContainer = styled.div`
+  display: flex;
+  position: relative;
   width: 100%;
-  height: 272px;
+  height: 284px;
   padding: 30px 20px;
   max-width: 338px;
   background: ${colors.PRIMARY_WHITE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 18px;
-  display: flex;
-  position: relative;
+  overflow: hidden;
 `
 
 export const IconContainer = styled.div`
