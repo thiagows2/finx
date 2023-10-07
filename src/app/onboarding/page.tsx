@@ -68,33 +68,14 @@ export default function Onboarding() {
     { manual: true }
   )
 
-  function createData(description: string, cost: number, type: number): Data {
-    return {
-      id: '',
-      description,
-      cost,
-      type
-    }
-  }
-
-  const initialRows = useMemo(
-    () => [
-      createData('Aluguel', 700, 3),
-      createData('Internet', 105, 2),
-      createData('Luz', 120, 2),
-      createData('Mercado', 500, 5)
-    ],
-    []
-  )
-
   const bodyRows = useMemo(() => {
-    const data = expenses ?? initialRows
+    const data = expenses ?? []
 
     return data.map((expense: Data) => {
       expense.id = uniqid(`${expense.description}-`)
       return expense
     })
-  }, [expenses, initialRows])
+  }, [expenses])
 
   const headCells: readonly HeadCell[] = [
     {
@@ -146,6 +127,7 @@ export default function Onboarding() {
   }
 
   async function onFinish() {
+    if (bodyRows.length < 3) return showError('Adicione pelo menos 3 despesas')
     setLoading(true)
 
     await updateExpenses({ data: bodyRows })

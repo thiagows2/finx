@@ -5,7 +5,7 @@ export function buildAxios(ctx?: any) {
   const { 'finx.token': token } = parseCookies(ctx)
 
   const axios = Axios.create({
-    baseURL: 'https://personal-finance-api.herokuapp.com'
+    baseURL: process.env.NEXT_PUBLIC_API_URL
   })
 
   if (token) {

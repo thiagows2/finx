@@ -280,42 +280,50 @@ export function EnhancedTable({ rows, headCells, categories, onDelete }: any) {
               rowCount={rows.length}
             />
             <TableBody>
-              {visibleRows.map((row: any, index) => {
-                const isItemSelected = isSelected(row.id)
+              {visibleRows &&
+                visibleRows.map((row: any, index) => {
+                  const isItemSelected = isSelected(row.id)
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.id)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.id}
-                    selected={isItemSelected}
-                    sx={{ cursor: 'pointer' }}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          'aria-labelledby': row.id
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={row.id}
-                      scope="row"
-                      padding="none"
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row.id)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.id}
+                      selected={isItemSelected}
+                      sx={{ cursor: 'pointer' }}
                     >
-                      {row.description}
-                    </TableCell>
-                    <TableCell>{categories[row.type]}</TableCell>
-                    <TableCell>{formatCurrency(row.cost)}</TableCell>
-                  </TableRow>
-                )
-              })}
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            'aria-labelledby': row.id
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={row.id}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.description}
+                      </TableCell>
+                      <TableCell>{categories[row.type]}</TableCell>
+                      <TableCell>{formatCurrency(row.cost)}</TableCell>
+                    </TableRow>
+                  )
+                })}
+              {visibleRows.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={6} align="center">
+                    Adicione uma nova despesa
+                  </TableCell>
+                </TableRow>
+              )}
               {emptyRows > 0 && (
                 <TableRow>
                   <TableCell colSpan={6} />

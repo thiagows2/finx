@@ -73,7 +73,7 @@ export function AddExpenseModal({ show, setShow, onAdd, categories }: Props) {
                   defaultValue=""
                   label="Categoria"
                   sx={{ width: '100%' }}
-                  {...register('category', { required: true })}
+                  {...register('type', { required: true })}
                 >
                   {categories.map((category: string, index) => (
                     <MenuItem key={`${category}_${index}`} value={index}>
